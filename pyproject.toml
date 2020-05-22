@@ -8,6 +8,7 @@ authors = ["Gus Garcia <gcastilhos@gmail.com>"]
 python = "^3.8"
 flask = "^1.1.2"
 heroku = "^0.1.4"
+gunicorn = "^20.0.4"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.5.2"
