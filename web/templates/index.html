@@ -1,0 +1,18 @@
+<!-- Div to Mount App -->
+<div id="app">
+<h2>Hello, World. From Blockchain1!</h2>
+<p>Message is {{ "{{" }} propertyName {{ "}}" }}.</p>
+</div>
+
+<!-- Reference to Vue.js library -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!-- Script Element for our first App -->
+<script>
+    var app = new Vue({
+        el:'#app',
+        data: {
+            propertyName: '{{ message }}'
+        }
+    });
+</script>

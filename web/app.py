@@ -1,10 +1,11 @@
 """
 Main Module for Blockchain1
 """
-from flask import Flask
+from flask import Flask, render_template, request, make_response
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route("/")
 def index():
-    return "Blockchain1"
+    message = 'Blockchain1'
+    return render_template('index.html', message=message)
