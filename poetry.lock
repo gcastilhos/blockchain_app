@@ -78,7 +78,7 @@ version = "5.1"
 toml = ["toml"]
 
 [[package]]
-category = "dev"
+category = "main"
 description = "the modular source code checker: pep8 pyflakes and co"
 name = "flake8"
 optional = false
@@ -232,7 +232,7 @@ python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*"
 version = "1.1.1"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "McCabe checker, plugin for flake8"
 name = "mccabe"
 optional = false
@@ -303,7 +303,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "1.8.1"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Python style guide checker"
 name = "pycodestyle"
 optional = false
@@ -311,7 +311,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "2.6.0"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "passive checker of Python programs"
 name = "pyflakes"
 optional = false
@@ -492,7 +492,7 @@ python-versions = "*"
 version = "1.12.1"
 
 [metadata]
-content-hash = "c45080d61e018230f7302f931842b060f38e8ec9f2026f4f9a2dd339c5e3100f"
+content-hash = "ca3778bd840405144220e87fa298072db61d9cec7f2bb49a271dc2722cb557c0"
 python-versions = "^3.8"
 
 [metadata.files]
