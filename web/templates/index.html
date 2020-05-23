@@ -5,16 +5,41 @@
         <div class="left"></div>
         <div id="app">
         <h2>Blockchain1</h2>
-        <div>
-            <img id="roof" src="/static/img/roof.png">
-        </div>
-        <table v-on:click="showMessage">
-            <tr><th colspan="4">Consumption Data registered in a Blockchain Database</th><tr>
-            <tr><td>Block No</td><td>000432</td><td>Nonce</td><td>f34b32da</td></tr>
-            <tr><td>Previous Hash</td><td colspan="3">0000000308e7e0bea95a3e88e4e406c37133f0929c80866bda04bc0bce53a15</td></tr>
-            <tr><td>Event<br/>Data</td><td colspan="3"> {{ "{{" }} propertyName {{ "}}" }}</td></tr>
-            <tr><td>Block Hash</td><td colspan="3">0000000308e7e0bea95a3e88e4e406c37133f0929c80866bda04bc0bce53a15</td></tr>
-        </table>
+        <form>
+            <div>
+                <img id="roof" src="/static/img/roof.png">
+            </div>
+            <table>
+                <tr>
+                    <th colspan="4">Consumption Data registered in a Blockchain Database</th>
+                <tr>
+                <tr>
+                    <td class="label">Block No</td>
+                    <td class="text"><input v-on:blur="getHash" type="text" v-model="block_no" id="block_no" /></td>
+                    <td class="label dark_blue">Nonce</td>
+                    <td class="text"><input v-on:blur="getHash" type="text" v-model="nonce" id="nonce" /></td>
+                </tr>
+                <tr>
+                    <td class="label purple">Previous&nbsp;Hash</td>
+                    <td class="text red" colspan="3">0000000308e7e0bea95a3e88e4e406c37133f0929c80866bda04bc0bce53a15</td>
+                </tr>
+                <tr>
+                    <td class="label big_font">Event<br/>Data</td>
+                    <td class="text" colspan="3"><textarea v-on:blur="getHash"  v-html="eventData" v-model="eventData"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="label">Block Hash</td>
+                    <td class="text" colspan="3">{{ "{{" }} hash {{ "}}" }}</td>
+                </tr>
+            </table>
+            <br />
+            <table class="no_border">
+                <tr>
+                    <td class="label">SHA 256</td>
+                    <td class="text" colspan="3" id="original_hash"></td>
+                </tr>
+            </table>
+        </form>
         </div>
         <div class="right"></div>
     </div>
@@ -28,16 +53,41 @@
     var app = new Vue({
         el:'#app',
         data: {
-            propertyName: ''
+            hash: '',
+            nonce: "{{ nonce }}",
+            block_no: "{{ block_no }}",
+            eventData: "{{ event_data|safe }}" 
         },
         methods: {
-            showMessage: function() {
+            fetchData: function() {
                 axios
-                    .get('/message')
+                    .get('/eventdata')
                     .then(response => {
-                        this.propertyName = response.data;
+                        this.eventData = response.data;
+                    });
+            },
+            getHash: function() {
+                axios
+                    .get('/hash?block_no=' + this.block_no +
+                         '&nonce=' + this.nonce +
+                         '&eventData=' + this.eventData)
+                    .then(response => {
+                        this.hash = response.data;
+                        var originalHash = document.getElementById("original_hash");
+                        var hash_value = originalHash.innerHTML;
+                        if (hash_value == '') {
+                            originalHash.innerHTML = this.hash;
+                        } else if (hash_value != this.hash) {
+                            originalHash.style.backgroundColor = 'red';
+                        } else {
+                            originalHash.style.backgroundColor = "#e7e6e6";
+                        }
                     });
             }
         }
     });
+</script>
+<script>
+    app.fetchData();
+    app.getHash();
 </script>

@@ -1,25 +1,65 @@
 /**
+ * Labels and titles elements
+ */
+h2 {
+    font-family: Calibri, Arial, Sans-serif;
+}
+
+/**
  * Table elements
  */
 table {
-    border: solid 1px black; 
+    border: solid 2px grey; 
     border-spacing: 5px;
     background-color: #e2f0d9;
+    width: 420px;
+}
+
+table.no_border {
+    border: none;
+    background-color: white;
 }
 
 th {
     text-align: left;
-    font-size: 12px;
+    font-size: 10pt;
     font-family: Calibri, Arial, Sans-serif;
 }
 
 td {
-    border: solid 1px black; 
+    border: solid 1pt #325490; 
     margin: 0;
-    font-size: 10px;
+    font-size: 8pt;
     background-color: #729fcf;
     font-family: "Arial Narrow";
+}
+
+td.text {
+    background-color: #e7e6e6; 
+}
+
+td.label {
+    text-align: center;
+    color: white;
+    border-radius: 5px;
     font-weight: bold;
+}
+
+td.big_font {
+    font-size: 16pt;
+    text-align: center;
+}
+
+td.dark_blue {
+    background-color: #002060;
+}
+
+td.purple {
+    background-color: #7030a0;
+}
+
+td.red {
+    color: red;
 }
 
 /**
@@ -48,6 +88,33 @@ div.right {
  */
 
 #roof {
-    width: 100%;
+    width: 435px;
     margin-bottom: 5px;
+}
+
+/**
+ * Input elements
+ */
+input[type=text] {
+    border: none;
+    font-size: 8pt;
+    background-color: #e7e6e6;
+    color: black;
+    width: 80%;
+    font-family: Calibri, Arial, Sans-serif;
+    font-weight: bold;
+    font-size: 8pt;
+}
+
+textarea {
+    font-family: Calibri, Arial, Sans-serif;
+    font-size: 8pt;
+    background-color: #e7e6e6;
+    color: black;
+    border: medium none;
+    width: 340px;
+    display: block;
+    overflow: hidden;
+    resize: none;
+    height: 150px;
 }
