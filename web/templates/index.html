@@ -1,7 +1,23 @@
 <!-- Div to Mount App -->
-<div id="app">
-<h2>Hello, World. From Blockchain1!</h2>
-<p>Message is {{ "{{" }} propertyName {{ "}}" }}.</p>
+<link href="/static/css/main.css" rel="stylesheet" />
+<div class="table">
+    <div class="row">
+        <div class="left"></div>
+        <div id="app">
+        <h2>Blockchain1</h2>
+        <div>
+            <img id="roof" src="/static/img/roof.png">
+        </div>
+        <table v-on:click="showMessage">
+            <tr><th colspan="4">Consumption Data registered in a Blockchain Database</th><tr>
+            <tr><td>Block No</td><td>000432</td><td>Nonce</td><td>f34b32da</td></tr>
+            <tr><td>Previous Hash</td><td colspan="3">0000000308e7e0bea95a3e88e4e406c37133f0929c80866bda04bc0bce53a15</td></tr>
+            <tr><td>Event<br/>Data</td><td colspan="3"> {{ "{{" }} propertyName {{ "}}" }}</td></tr>
+            <tr><td>Block Hash</td><td colspan="3">0000000308e7e0bea95a3e88e4e406c37133f0929c80866bda04bc0bce53a15</td></tr>
+        </table>
+        </div>
+        <div class="right"></div>
+    </div>
 </div>
 
 <!-- Reference to Vue.js library -->
@@ -12,7 +28,16 @@
     var app = new Vue({
         el:'#app',
         data: {
-            propertyName: '{{ message }}'
+            propertyName: ''
+        },
+        methods: {
+            showMessage: function() {
+                axios
+                    .get('/message')
+                    .then(response => {
+                        this.propertyName = response.data;
+                    });
+            }
         }
     });
 </script>

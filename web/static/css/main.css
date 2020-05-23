@@ -1,0 +1,53 @@
+/**
+ * Table elements
+ */
+table {
+    border: solid 1px black; 
+    border-spacing: 5px;
+    background-color: #e2f0d9;
+}
+
+th {
+    text-align: left;
+    font-size: 12px;
+    font-family: Calibri, Arial, Sans-serif;
+}
+
+td {
+    border: solid 1px black; 
+    margin: 0;
+    font-size: 10px;
+    background-color: #729fcf;
+    font-family: "Arial Narrow";
+    font-weight: bold;
+}
+
+/**
+ * DIV elements that create the page structure
+ */
+div.table {
+    display: table;
+}
+
+div.row {
+    display: table-row;
+}
+
+div.left {
+    width: 30%;
+    display: table-cell;
+}
+
+div.right {
+    width: 30%;
+    display: table-cell;
+}
+
+/**
+ * Graphical elements
+ */
+
+#roof {
+    width: 100%;
+    margin-bottom: 5px;
+}
