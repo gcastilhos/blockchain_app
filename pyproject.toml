@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "blockchain1"
-version = "0.1.0"
+version = "0.2.0"
 description = "Blockchain Demo App"
 authors = ["Gus Garcia <gcastilhos@gmail.com>"]
 
