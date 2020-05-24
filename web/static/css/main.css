@@ -88,8 +88,9 @@ div.right {
  */
 
 #roof {
-    width: 435px;
+    width: 100%;
     margin-bottom: 5px;
+    object-fit: contain;
 }
 
 /**

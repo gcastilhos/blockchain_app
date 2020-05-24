@@ -1,10 +1,5 @@
-<!-- Div to Mount App -->
-<link href="/static/css/main.css" rel="stylesheet" />
-<div class="table">
-    <div class="row">
-        <div class="left"></div>
-        <div id="app">
-        <h2>Blockchain1</h2>
+{% extends "frame.html" %}
+{% block content %}
         <form>
             <div>
                 <img id="roof" src="/static/img/roof.png">
@@ -28,66 +23,16 @@
                     <td class="text" colspan="3"><textarea v-on:blur="getHash"  v-html="eventData" v-model="eventData"></textarea></td>
                 </tr>
                 <tr>
-                    <td class="label">Block Hash</td>
+                    <td class="label">Block&nbsp;Hash</td>
                     <td class="text" colspan="3">{{ "{{" }} hash {{ "}}" }}</td>
                 </tr>
             </table>
             <br />
             <table class="no_border">
                 <tr>
-                    <td class="label">SHA 256</td>
+                    <td class="label">SHA&nbsp;256</td>
                     <td class="text" colspan="3" id="original_hash"></td>
                 </tr>
             </table>
         </form>
-        </div>
-        <div class="right"></div>
-    </div>
-</div>
-
-<!-- Reference to Vue.js library -->
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<!-- Script Element for our first App -->
-<script>
-    var app = new Vue({
-        el:'#app',
-        data: {
-            hash: '',
-            nonce: "{{ nonce }}",
-            block_no: "{{ block_no }}",
-            eventData: "{{ event_data|safe }}" 
-        },
-        methods: {
-            fetchData: function() {
-                axios
-                    .get('/eventdata')
-                    .then(response => {
-                        this.eventData = response.data;
-                    });
-            },
-            getHash: function() {
-                axios
-                    .get('/hash?block_no=' + this.block_no +
-                         '&nonce=' + this.nonce +
-                         '&eventData=' + this.eventData)
-                    .then(response => {
-                        this.hash = response.data;
-                        var originalHash = document.getElementById("original_hash");
-                        var hash_value = originalHash.innerHTML;
-                        if (hash_value == '') {
-                            originalHash.innerHTML = this.hash;
-                        } else if (hash_value != this.hash) {
-                            originalHash.style.backgroundColor = 'red';
-                        } else {
-                            originalHash.style.backgroundColor = "#e7e6e6";
-                        }
-                    });
-            }
-        }
-    });
-</script>
-<script>
-    app.fetchData();
-    app.getHash();
-</script>
+{% endblock %}
