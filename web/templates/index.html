@@ -10,17 +10,17 @@
                 <tr>
                 <tr>
                     <td class="label">Block No</td>
-                    <td class="text"><input v-on:keyup="getHash" type="text" v-model="block_no" id="block_no" /></td>
+                    <td class="text"><input disabled="true" type="text" v-model="block_no" id="block_no" /></td>
                     <td class="label dark_blue">Nonce</td>
-                    <td class="text"><input v-on:keyup="getHash" type="text" v-model="nonce" id="nonce" /></td>
+                    <td class="text"><input disabled="true" type="text" v-model="nonce" id="nonce" /></td>
                 </tr>
                 <tr>
                     <td class="label purple">Previous&nbsp;Hash</td>
-                    <td class="text red" colspan="3">0000000308e7e0bea95a3e88e4e406c37133f0929c80866bda04bc0bce53a15</td>
+                    <td class="text red" colspan="3" id="previous_hash">0000000308e7e0bea95a3e88e4e406c37133f0929c80866bda04bc0bce53a15</td>
                 </tr>
                 <tr>
                     <td class="label big_font">Event<br/>Data</td>
-                    <td class="text" colspan="3"><textarea v-on:keyup="getHash"  v-html="eventData" v-model="eventData"></textarea></td>
+                    <td class="text" colspan="3"><textarea v-on:keyup="getHash" v-html="eventData" v-model="eventData"></textarea></td>
                 </tr>
                 <tr>
                     <td class="label">Block&nbsp;Hash</td>

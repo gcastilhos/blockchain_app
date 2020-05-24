@@ -5,7 +5,7 @@ var app;
         el:'#app',
         data: {
             hash: '',
-            nonce: a_nonce,
+            nonce: '',
             block_no: a_block_no,
             eventData: a_eventData
         },
@@ -18,12 +18,15 @@ var app;
                     });
             },
             getHash: function() {
+                var previous_hash = document.getElementById("previous_hash");
                 axios
-                    .get('/hash?block_no=' + this.block_no +
-                         '&nonce=' + this.nonce +
-                         '&eventData=' + this.eventData)
+                    .get('/hash?eventData=' + this.eventData +
+                         '&previous_hash=' + previous_hash.innerHTML)
                     .then(response => {
-                        this.hash = response.data;
+                        var data = response.data;
+                        console.log(data);
+                        this.nonce = data[0];
+                        this.hash = data[1];
                         var originalHash = document.getElementById("original_hash");
                         var hash_value = originalHash.innerHTML;
                         if (hash_value == '') {

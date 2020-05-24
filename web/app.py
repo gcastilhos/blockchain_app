@@ -5,7 +5,8 @@ import logging
 import html
 from hashlib import sha256
 from urllib.parse import urlparse, parse_qsl
-from flask import Flask, render_template, request, make_response
+from bchain.pow import proof_of_work
+from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 
 logger = logging.getLogger(__name__)
@@ -31,7 +32,6 @@ LINE_BREAK = ""
 @app.route("/")
 def index():
     params = {'message': 'Blockchain1',
-              'nonce': "f34b32da", 
               'block_no': "000432",
               'event_data': create_block(),
               }
@@ -51,14 +51,14 @@ def create_block():
 
 @app.route("/hash")
 def hash():
-    return create_hash(request)
+    nonce, hash_code = create_hash(request)
+    return jsonify((hex(nonce).replace("0x", ''), hash_code))
 
 
 def create_hash(request):
     encoder = sha256()
     params = dict(parse_qsl(request.query_string))
-    values = params.get(b'block_no', b'') + params.get(b'eventData', b'') + \
-             params.get(b'nonce', b'')
+    values = params.get(b'previous_hash', b'') + params.get(b'eventData', b'')
     encoder.update(values)
-    logger.info("Hash values: %s, %s, %s", *params.values())
-    return encoder.hexdigest()
+    logger.info("Hash values: %s, %s", *params.values())
+    return proof_of_work(*params.values())
