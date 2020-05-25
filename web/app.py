@@ -31,7 +31,7 @@ def event_data():
 @app.route("/hash")
 def hashcode():
     nonce, hash_code = create_hash(request)
-    return jsonify((hex(nonce).replace("0x", ''), hash_code))
+    return jsonify(nonce, hash_code)
 
 
 @app.route("/houses")
