@@ -45,3 +45,17 @@ def create_hash(request):
     encoder.update(values)
     logger.info("Hash values: %s, %s", *params.values())
     return proof_of_work(*params.values())
+
+
+def create_block_chain(previous_hash, nonce):
+    """Creates 6 (+ 1, the first) blocks in the chain, using `previous_hash`
+    and `nonce` as the starting element.
+    """
+    hash_list = [(nonce, previous_hash)]
+    block = create_block()
+    for i in range(1, 7):
+        nonce, hash_code = proof_of_work(hash_list[i - 1][1].encode(),
+                                         block.encode())
+        hash_list.append((nonce, hash_code))
+
+    return hash_list

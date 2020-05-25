@@ -1,0 +1,21 @@
+<!-- Div to Mount App -->
+<link href="/static/css/main.css" rel="stylesheet" />
+<div class="table">
+    <div class="row">
+        <div class="left"></div>
+        <div id="app">
+            <h2>Blockchain1</h2>
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div class="right"></div>
+    </div>
+</div>
+
+<!-- Reference to Vue.js library -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!-- Script Element for our first App -->
+<input type="hidden" id="block_no" value="{{ block_no }}">
+<input type="hidden" id="eventData" value="{{ event_data }}">
+<script src="/static/js/houses.js"></script>

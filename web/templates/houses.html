@@ -1,4 +1,4 @@
-{% extends "frame.html" %}
+{% extends "houses_frame.html" %}
 {% block content %}
         {% for i in range(1, 7) %}
         <div class="{{ 'left' if i % 2 == 1 else 'right' }}">
@@ -12,13 +12,15 @@
                 </tr>
                 <tr>
                     <td class="label">Block No</td>
-                    <td class="text"><input disabled="true" type="text" v-model="block_no" id="block_no" /></td>
+                    <td class="text">
+                        <input disabled="true" type="text" id="block_no_{{ i }}" value='{{ "{:07d}".format(block_no|int + i - 1) }}' />
+                    </td>
                     <td class="label dark_blue">Nonce</td>
-                    <td class="text"><input disabled="true" type="text" v-model="nonce" id="nonce" /></td>
+                    <td class="text"><input disabled="true" type="text" id="nonce{{ i }}" value="{{ hash_list[i][0] }}" /></td>
                 </tr>
                 <tr>
                     <td class="label purple">Previous&nbsp;Hash</td>
-                    <td class="text red" colspan="3" id="previous_hash">0000000308e7e0bea95a3e88e4e406c37133f0929c80866bda04bc0bce53a15</td>
+                    <td class="text red" colspan="3" id="previous_hash_{{ i }}">{{ hash_list[i - 1][1] }}</td>
                 </tr>
                 <tr>
                     <td class="label big_font">Event<br/>Data</td>
@@ -26,14 +28,14 @@
                 </tr>
                 <tr>
                     <td class="label">Block&nbsp;Hash</td>
-                    <td class="text" colspan="3">{{ "{{" }} hash {{ "}}" }}</td>
+                    <td class="text" colspan="3" id="hash_code_{{ i }}">{{ hash_list[i][1] }}</td>
                 </tr>
             </table>
             <br />
             <table class="no_border">
                 <tr>
                     <td class="label">SHA&nbsp;256</td>
-                    <td class="text" colspan="3" id="original_hash"></td>
+                    <td class="text" colspan="3" id="original_hash_{{ i }}">{{ hash_list[i][1] }}</td>
                 </tr>
             </table>
         </form>
