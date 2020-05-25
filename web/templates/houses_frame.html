@@ -13,7 +13,11 @@
 </div>
 
 <!-- Reference to Vue.js library -->
+{% if production %}
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+{% else %}
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+{% endif %}
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <!-- Script Element for our first App -->
 <input type="hidden" id="block_no" value="{{ block_no }}">

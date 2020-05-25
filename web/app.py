@@ -1,6 +1,7 @@
 """
 Main Module for Blockchain1
 """
+import os
 from random import randint
 from flask import Flask, render_template, request, jsonify
 from bchain.bchain import create_block, create_hash, create_block_chain
@@ -39,5 +40,6 @@ def houses():
               'block_no': "000432",
               'event_data': create_block(),
               'hash_list': create_block_chain(FIRST_HASH, NONCE),
+              'production': os.environ.get('PRODUCTION', False)
               }
     return render_template('houses.html', **params)

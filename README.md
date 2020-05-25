@@ -6,6 +6,13 @@ A demonstration application using blockchain technology.
 
 [Blockchain1 on Heroku](https://blockchain1aus.herokuapp.com/)
 
+### Production Environment
+
+Setting the `PRODUCTION` flag in the production environment.
+```
+heroku config:add PRODUCTION=True --app blockchain1aus
+```
+
 ## Techonology Stack
 
 * Python 3.8.3
