@@ -16,7 +16,7 @@
                         <input disabled="true" type="text" id="block_no_{{ i }}" value='{{ "{:07d}".format(block_no|int + i - 1) }}' />
                     </td>
                     <td class="label dark_blue">Nonce</td>
-                    <td class="text"><input disabled="true" type="text" id="nonce{{ i }}" value="{{ hash_list[i][0] }}" /></td>
+                    <td class="text"><input disabled="true" type="text" id="nonce_{{ i }}" value="{{ hash_list[i][0] }}" /></td>
                 </tr>
                 <tr>
                     <td class="label purple">Previous&nbsp;Hash</td>
@@ -24,7 +24,7 @@
                 </tr>
                 <tr>
                     <td class="label big_font">Event<br/>Data</td>
-                    <td class="text" colspan="3"><textarea v-on:keyup="getHash" v-html="eventData" v-model="eventData"></textarea></td>
+                    <td class="text" colspan="3"><textarea v-on:keyup="getHash({{ i }})" id="eventData_{{ i }}">{{ event_data }}</textarea></td>
                 </tr>
                 <tr>
                     <td class="label">Block&nbsp;Hash</td>

@@ -41,10 +41,9 @@ def create_hash(request):
     """
     encoder = sha256()
     params = dict(parse_qsl(request.query_string))
-    values = params.get(b'previous_hash', b'') + params.get(b'eventData', b'')
-    encoder.update(values)
     logger.info("Hash values: %s, %s", *params.values())
-    return proof_of_work(*params.values())
+    return proof_of_work(params.get(b'previous_hash'),
+                         params.get(b'eventData'))
 
 
 def create_block_chain(previous_hash, nonce, prefix="0000"):

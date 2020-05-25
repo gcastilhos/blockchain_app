@@ -1,4 +1,4 @@
-""":w
+"""
 Provides functions to calculate the proof of work
 and the nonce.
 """
