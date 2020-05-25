@@ -16,10 +16,8 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <!-- Script Element for our first App -->
-<script>
-var a_block_no = "{{ block_no }}";
-var a_eventData = "{{ event_data|safe }}";
-</script>
+<input type="hidden" id="block_no" value="{{ block_no }}">
+<input type="hidden" id="eventData" value="{{ event_data }}">
 <script src="/static/js/main.js"></script>
 <script>
     app.fetchData();

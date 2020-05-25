@@ -76,6 +76,7 @@ div.row {
 div.left {
     width: 30%;
     display: table-cell;
+    padding-right: 100px;
 }
 
 div.right {

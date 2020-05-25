@@ -1,4 +1,8 @@
+"use strict";
+
 var app;
+var a_block_no = document.getElementById("block_no").value;
+var a_eventData = document.getElementById("eventData").value;
 
 (function() {
     app = new Vue({
@@ -24,7 +28,6 @@ var app;
                          '&previous_hash=' + previous_hash.innerHTML)
                     .then(response => {
                         var data = response.data;
-                        console.log(data);
                         this.nonce = data[0];
                         this.hash = data[1];
                         var originalHash = document.getElementById("original_hash");
