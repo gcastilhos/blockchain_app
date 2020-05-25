@@ -47,7 +47,7 @@ def create_hash(request):
     return proof_of_work(*params.values())
 
 
-def create_block_chain(previous_hash, nonce):
+def create_block_chain(previous_hash, nonce, prefix="0000"):
     """Creates 6 (+ 1, the first) blocks in the chain, using `previous_hash`
     and `nonce` as the starting element.
     """
@@ -55,7 +55,8 @@ def create_block_chain(previous_hash, nonce):
     block = create_block()
     for i in range(1, 7):
         nonce, hash_code = proof_of_work(hash_list[i - 1][1].encode(),
-                                         block.encode())
+                                         block.encode(),
+                                         prefix=prefix)
         hash_list.append((nonce, hash_code))
 
     return hash_list

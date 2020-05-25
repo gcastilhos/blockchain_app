@@ -5,12 +5,12 @@ and the nonce.
 from hashlib import sha256
 
 
-def proof_of_work(previous_hash, text):
-    nonce, hash_code = calculate_nonce(previous_hash, text)
+def proof_of_work(previous_hash, text, prefix="0000"):
+    nonce, hash_code = calculate_nonce(previous_hash, text, prefix)
     return nonce, hash_code
 
 
-def calculate_nonce(previous_hash, text, prefix="0000"):
+def calculate_nonce(previous_hash, text, prefix):
 
     def valid_hash(hash_code):
         if hash_code:

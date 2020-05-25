@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 
 NONCE = '23df'
-FIRST_HASH = ("0000000308e7e0bea95a3e88e4e406c3"
+FIRST_HASH = ("0000100308e7e0bea95a3e88e4e406c3"
               "7133f0929c80866bda04bc0bce53a15")
  
 
