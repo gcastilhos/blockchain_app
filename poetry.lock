@@ -538,6 +538,17 @@ python-versions = "*"
 version = "1.5"
 
 [[package]]
+category = "main"
+description = "Add .env support to your django/flask apps in development and deployments"
+name = "python-dotenv"
+optional = false
+python-versions = "*"
+version = "0.13.0"
+
+[package.extras]
+cli = ["click (>=5.0)"]
+
+[[package]]
 category = "dev"
 description = "Code Metrics in Python"
 name = "radon"
@@ -659,7 +670,7 @@ python-versions = "*"
 version = "1.12.1"
 
 [metadata]
-content-hash = "4722896af02876c92079e6d0ef03efea873bada8879a15d236c71db4f22b61aa"
+content-hash = "d722b2953b94ba7f1988e4dc8579443c8903197de8e7fe636398126a13c455b2"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -942,6 +953,10 @@ pytest-cov = [
 ]
 python-dateutil = [
     {file = "python-dateutil-1.5.tar.gz", hash = "sha256:6f197348b46fb8cdf9f3fcfc2a7d5a97da95db3e2e8667cf657216274fe1b009"},
+]
+python-dotenv = [
+    {file = "python-dotenv-0.13.0.tar.gz", hash = "sha256:3b9909bc96b0edc6b01586e1eed05e71174ef4e04c71da5786370cebea53ad74"},
+    {file = "python_dotenv-0.13.0-py2.py3-none-any.whl", hash = "sha256:25c0ff1a3e12f4bde8d592cc254ab075cfe734fc5dd989036716fd17ee7e5ec7"},
 ]
 radon = [
     {file = "radon-4.1.0-py2.py3-none-any.whl", hash = "sha256:0c18111ec6cfe7f664bf9db6c51586714ac8c6d9741542706df8a85aca39b99a"},
