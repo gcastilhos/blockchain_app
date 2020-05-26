@@ -15,13 +15,10 @@ var a_previous_hash = document.getElementById("hash_code").value.split(",");
                  '&previous_hash=' + app.previous_hash[id - 1])
             .then(response => {
                 var data = response.data;
-                Vue.set(app.nonce, id, data[0]);
+                app.$set(app.nonce, id, data[0]);
                 app.hash[id] = data[1];
-                var originalHash = document.getElementById("original_hash_" + id);
-                if (app.original_hash[id] != app.hash[id]) {
-                    originalHash.style.backgroundColor = 'red';
-                } else {
-                    originalHash.style.backgroundColor = "#e7e6e6";
+                for (var i = id; i < 7; i++) {
+                    app.active[i] = (app.original_hash[id] != app.hash[id]);
                 }
             });
     }
@@ -41,7 +38,8 @@ var a_previous_hash = document.getElementById("hash_code").value.split(",");
             original_hash: a_original_hash,
             previous_hash: a_previous_hash,
             nonce: a_nonce,
-            eventData: a_eventData
+            eventData: a_eventData,
+            active: [false, false, false, false, false, false, false]
         },
         methods: {
             fetchData: _fetchData,

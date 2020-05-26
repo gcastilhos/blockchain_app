@@ -6,7 +6,7 @@
             <div>
                 <img id="roof" src="/static/img/roof{{ i }}.png">
             </div>
-            <table>
+            <table v-bind:class="{bg_red: active[{{ i }}]}">
                 <tr>
                     <th colspan="4">Consumption Data registered in a Blockchain Database</th>
                 </tr>
@@ -44,7 +44,7 @@
                 <tr>
                     <td class="label narrow">SHA&nbsp;256</td>
                     <td class="text" colspan="3"> 
-                        <input class="hash" disabled="true" id="original_hash_{{i}}" type="text" v-model="original_hash[{{ i }}]" />
+                        <input class="hash" disabled="true" v-bind:class="{bg_red: active[{{i}}]}" id="original_hash_{{i}}" type="text" v-model="original_hash[{{ i }}]" />
                     </td>
                 </tr>
             </table>

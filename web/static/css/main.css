@@ -135,3 +135,11 @@ textarea {
     resize: none;
     height: 150px;
 }
+
+/**
+ * Miscelaneous
+ */
+
+.bg_red {
+    background-color: red;
+}
