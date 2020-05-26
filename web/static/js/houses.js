@@ -1,47 +1,51 @@
 "use strict";
 
 var app;
-var a_eventData = document.getElementById("eventData").value;
+var a_eventData = document.getElementById("eventData").value.split(",");
+var a_nonce =  document.getElementById("nonce").value.split(",");
+var a_hash_code = document.getElementById("hash_code").value.split(",");
+var a_original_hash = document.getElementById("hash_code").value.split(","); 
+var a_previous_hash = document.getElementById("hash_code").value.split(","); 
 
 (function() {
+
+    function _getHash(id) {
+        axios
+            .get('/hash?eventData=' + app.eventData[id] +
+                 '&previous_hash=' + app.previous_hash[id - 1])
+            .then(response => {
+                var data = response.data;
+                Vue.set(app.nonce, id, data[0]);
+                app.hash[id] = data[1];
+                var originalHash = document.getElementById("original_hash_" + id);
+                if (app.original_hash[id] != app.hash[id]) {
+                    originalHash.style.backgroundColor = 'red';
+                } else {
+                    originalHash.style.backgroundColor = "#e7e6e6";
+                }
+            });
+    }
+
+    function _fetchData() {
+        axios
+            .get('/eventdata')
+            .then(response => {
+                app.eventData = response.data;
+            });
+    }
+
     app = new Vue({
         el:'#app',
         data: {
-            hash: '',
-            nonce: '',
+            hash: a_hash_code,
+            original_hash: a_original_hash,
+            previous_hash: a_previous_hash,
+            nonce: a_nonce,
+            eventData: a_eventData
         },
         methods: {
-            fetchData: function() {
-                axios
-                    .get('/eventdata')
-                    .then(response => {
-                        this.eventData = response.data;
-                    });
-            },
-            getHash: function(id) {
-                var previous_hash = document.getElementById("previous_hash_" + id).innerHTML;
-                var eventData = document.getElementById("eventData_" + id).value;
-                axios
-                    .get('/hash?eventData=' + eventData +
-                         '&previous_hash=' + previous_hash)
-                    .then(response => {
-                        var data = response.data;
-                        var nonce = document.getElementById('nonce_' + id);
-                        nonce.value = data[0];
-                        var hash = data[1];
-                        var hash_code = document.getElementById('hash_code_' + id);
-                        hash_code.innerHTML = hash;
-                        var originalHash = document.getElementById("original_hash_" + id);
-                        var hash_value = originalHash.innerHTML;
-                        if (hash_value == '') {
-                            originalHash.innerHTML = hash;
-                        } else if (hash_value != hash) {
-                            originalHash.style.backgroundColor = 'red';
-                        } else {
-                            originalHash.style.backgroundColor = "#e7e6e6";
-                        }
-                    });
-            }
+            fetchData: _fetchData,
+            getHash: _getHash
         }
     });
 })();

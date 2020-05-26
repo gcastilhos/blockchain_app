@@ -16,26 +16,36 @@
                         <input disabled="true" type="text" id="block_no_{{ i }}" value='{{ "{:07d}".format(block_no|int + i - 1) }}' />
                     </td>
                     <td class="label dark_blue">Nonce</td>
-                    <td class="text"><input disabled="true" type="text" id="nonce_{{ i }}" value="{{ hash_list[i][0] }}" /></td>
+                    <td class="text">
+                        <input disabled="true" type="text" v-model="nonce[{{i}}]" :id="{{ i }}" />
+                    </td>
                 </tr>
                 <tr>
                     <td class="label purple">Previous&nbsp;Hash</td>
-                    <td class="text red" colspan="3" id="previous_hash_{{ i }}">{{ hash_list[i - 1][1] }}</td>
+                    <td class="text" colspan="3">
+                        <input class="red" disabled="true" type="text" v-model="previous_hash[{{ i - 1 }}]" />
+                    </td>
                 </tr>
                 <tr>
                     <td class="label big_font">Event<br/>Data</td>
-                    <td class="text" colspan="3"><textarea v-on:keyup="getHash({{ i }})" id="eventData_{{ i }}">{{ event_data }}</textarea></td>
+                    <td class="text" colspan="3">
+                        <textarea v-on:keyup="getHash({{ i }})" v-model="eventData[{{ i }}]"></textarea>
+                    </td>
                 </tr>
                 <tr>
                     <td class="label">Block&nbsp;Hash</td>
-                    <td class="text" colspan="3" id="hash_code_{{ i }}">{{ hash_list[i][1] }}</td>
+                    <td class="text" colspan="3">
+                        <input class="hash" disabled="true" type="text" v-model="hash[{{ i }}]" />
+                    </td>
                 </tr>
             </table>
             <br />
             <table class="no_border">
                 <tr>
-                    <td class="label">SHA&nbsp;256</td>
-                    <td class="text" colspan="3" id="original_hash_{{ i }}">{{ hash_list[i][1] }}</td>
+                    <td class="label narrow">SHA&nbsp;256</td>
+                    <td class="text" colspan="3"> 
+                        <input class="hash" disabled="true" id="original_hash_{{i}}" type="text" v-model="original_hash[{{ i }}]" />
+                    </td>
                 </tr>
             </table>
         </form>

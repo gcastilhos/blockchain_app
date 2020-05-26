@@ -36,10 +36,12 @@ def hashcode():
 
 @app.route("/houses")
 def houses():
+    nonces, hash_codes = zip(*create_block_chain(FIRST_HASH, NONCE))
     params = {'message': 'Blockchain1',
-              'block_no': "000432",
-              'event_data': create_block(),
-              'hash_list': create_block_chain(FIRST_HASH, NONCE),
+              'block_no': 432,
+              'event_data': ",".join([create_block()] * 7),
+              'nonce_list': ",".join(nonces),
+              'hash_list': ",".join(hash_codes),
               'production': os.environ.get('PRODUCTION', False)
               }
     return render_template('houses.html', **params)
