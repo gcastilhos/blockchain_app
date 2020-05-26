@@ -1,25 +1,18 @@
 "use strict";
 
-var app;
-var a_eventData = sessionStorage.eventData.split(",");
-var a_nonce = sessionStorage.nonce.split(",");
-var a_hash_code = sessionStorage.hash_code.split(",");
-var a_original_hash = a_hash_code.slice();
-var a_previous_hash = a_hash_code.slice();
-
 (function() {
 
     function _getHash(id) {
         axios
             .get('/hash?eventData=' + app.eventData[id] +
-                 '&previous_hash=' + app.previous_hash[id - 1])
+                 '&previous_hash=' + app.previous_hash[id])
             .then(response => {
                 var data = response.data;
                 app.$set(app.nonce, id, data[0]);
-                app.hash[id] = data[1];
+                app.$set(app.hash, id, data[1]);
                 app.$set(app.active, id, (app.original_hash[id] != app.hash[id]));
-                if (id < 7) {
-                    app.previous_hash[id] = app.hash[id];
+                if (id < app.size - 1) {
+                    app.$set(app.previous_hash, id + 1, app.hash[id]);
                     _getHash(id + 1);
                 }
             });
@@ -33,15 +26,17 @@ var a_previous_hash = a_hash_code.slice();
             });
     }
 
-    app = new Vue({
+    var app = new Vue({
         el:'#app',
         data: {
-            hash: a_hash_code,
-            original_hash: a_original_hash,
-            previous_hash: a_previous_hash,
-            nonce: a_nonce,
-            eventData: a_eventData,
-            active: new Array(7).fill(false)
+            block_no: sessionStorage.block_no.split(","),
+            hash: sessionStorage.hash_code.split(","),
+            original_hash: sessionStorage.hash_code.split(","),
+            previous_hash: sessionStorage.previous_hash.split(","),
+            nonce: sessionStorage.nonce.split(","),
+            eventData: sessionStorage.eventData.split(","),
+            active: new Array(sessionStorage.size).fill(false),
+            size: sessionStorage.size
         },
         methods: {
             fetchData: _fetchData,

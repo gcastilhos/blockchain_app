@@ -69,15 +69,15 @@ def create_block_chain(previous_hash, nonce, prefix="0000"):
 
 def create_data(number_of_hash_codes):
     """Generate the data for the espeficied number of hash codes,
-    plus the previous code. For one house, the number of hash codes
-    should be 2, for 2, should be 3, and so on.
+    plus the previous code.
     """
     nonces, hash_codes = zip(*create_block_chain(FIRST_HASH, NONCE))
     params = {'title': TITLE,
-              'block_no': INITIAL_BLOCK_NO,
+              'block_no': [INITIAL_BLOCK_NO + count for count in range(number_of_hash_codes)],
               'event_data': [create_block()] * number_of_hash_codes,
-              'nonce_list': nonces[:number_of_hash_codes],
-              'hash_list': hash_codes[:number_of_hash_codes],
+              'nonce_list': nonces[1:number_of_hash_codes + 1],
+              'hash_list': hash_codes[1:number_of_hash_codes + 1],
+              'previous_hash': hash_codes[:number_of_hash_codes],
               'production': os.environ.get('PRODUCTION', False),
               'size': number_of_hash_codes,
               }

@@ -78,21 +78,22 @@ div.row {
 }
 
 div.left {
-    width: 30%;
+    width: 15%;
     display: table-cell;
-    padding-right: 100px;
+    padding-right: 50px;
 }
 
 div.right {
     width: 30%;
     display: table-cell;
+    padding-left: 50px;
 }
 
 /**
  * Graphical elements
  */
 
-#roof {
+.roof {
     width: 100%;
     margin-bottom: 5px;
     object-fit: contain;
