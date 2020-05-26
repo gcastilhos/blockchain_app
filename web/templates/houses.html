@@ -13,11 +13,11 @@
                 <tr>
                     <td class="label">Block No</td>
                     <td class="text">
-                        <input disabled="true" type="text" id="block_no_{{ i }}" value='{{ "{:07d}".format(block_no|int + i - 1) }}' />
+                        <input disabled="true" type="text" ref="block_no_{{ i }}" value='{{ "{:07d}".format(block_no|int + i - 1) }}' />
                     </td>
                     <td class="label dark_blue">Nonce</td>
                     <td class="text">
-                        <input disabled="true" type="text" v-model="nonce[{{i}}]" :id="{{ i }}" />
+                        <input disabled="true" type="text" v-model="nonce[{{ i }}]" :id="{{ i }}" />
                     </td>
                 </tr>
                 <tr>
@@ -44,7 +44,7 @@
                 <tr>
                     <td class="label narrow">SHA&nbsp;256</td>
                     <td class="text" colspan="3"> 
-                        <input class="hash" disabled="true" v-bind:class="{bg_red: active[{{i}}]}" id="original_hash_{{i}}" type="text" v-model="original_hash[{{ i }}]" />
+                        <input class="hash"  v-bind:class="{bg_red: active[{{ i }}]}" disabled="true" ref="original_hash_{{ i }}" type="text" v-model="original_hash[{{ i }}]" />
                     </td>
                 </tr>
             </table>

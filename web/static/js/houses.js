@@ -1,11 +1,11 @@
 "use strict";
 
 var app;
-var a_eventData = document.getElementById("eventData").value.split(",");
-var a_nonce =  document.getElementById("nonce").value.split(",");
-var a_hash_code = document.getElementById("hash_code").value.split(",");
-var a_original_hash = document.getElementById("hash_code").value.split(","); 
-var a_previous_hash = document.getElementById("hash_code").value.split(","); 
+var a_eventData = sessionStorage.eventData.split(",");
+var a_nonce = sessionStorage.nonce.split(",");
+var a_hash_code = sessionStorage.hash_code.split(",");
+var a_original_hash = a_hash_code.slice();
+var a_previous_hash = a_hash_code.slice();
 
 (function() {
 
@@ -17,8 +17,10 @@ var a_previous_hash = document.getElementById("hash_code").value.split(",");
                 var data = response.data;
                 app.$set(app.nonce, id, data[0]);
                 app.hash[id] = data[1];
-                for (var i = id; i < 7; i++) {
-                    app.active[i] = (app.original_hash[id] != app.hash[id]);
+                app.$set(app.active, id, (app.original_hash[id] != app.hash[id]));
+                if (id < 7) {
+                    app.previous_hash[id] = app.hash[id];
+                    _getHash(id + 1);
                 }
             });
     }
@@ -39,7 +41,7 @@ var a_previous_hash = document.getElementById("hash_code").value.split(",");
             previous_hash: a_previous_hash,
             nonce: a_nonce,
             eventData: a_eventData,
-            active: [false, false, false, false, false, false, false]
+            active: new Array(7).fill(false)
         },
         methods: {
             fetchData: _fetchData,

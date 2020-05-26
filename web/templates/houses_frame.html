@@ -13,6 +13,11 @@
 </div>
 
 <!-- Reference to Vue.js library -->
+<script>
+    sessionStorage.nonce = {{ nonce_list|tojson|safe }};
+    sessionStorage.hash_code = {{ hash_list|tojson|safe }};
+    sessionStorage.eventData = {{ event_data|tojson|safe }};
+</script>
 {% if production %}
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
 {% else %}
@@ -20,8 +25,4 @@
 {% endif %}
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <!-- Script Element for our first App -->
-<input type="hidden" id="block_no" value="{{ block_no }}">
-<input type="hidden" id="eventData" value="{{ event_data }}">
-<input type="hidden" id="nonce" value="{{ nonce_list }}">
-<input type="hidden" id="hash_code" value="{{ hash_list }}">
 <script src="/static/js/houses.js"></script>

@@ -118,6 +118,10 @@ input[type=text].red {
     width: 100%;
 }
 
+input[type=text].bg_red {
+    background-color: red;
+}
+
 input[type=text].hash {
     font-weight: normal;
     width: 100%;
