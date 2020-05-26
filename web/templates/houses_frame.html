@@ -13,7 +13,7 @@
 </div>
 
 <!-- Reference to Vue.js library -->
-<script>
+<script nonce="{{ csp_nonce() }}">
     sessionStorage.nonce = {{ nonce_list|tojson|safe }};
     sessionStorage.hash_code = {{ hash_list|tojson|safe }};
     sessionStorage.eventData = {{ event_data|tojson|safe }};
