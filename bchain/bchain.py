@@ -3,6 +3,7 @@ Blockchain Main Functions
 
 Creates the block and hashes.
 """
+import os
 import logging
 from urllib.parse import parse_qsl
 from hashlib import sha256
@@ -26,6 +27,11 @@ DATA_RECORDS = ["10Mar2015 0:00:00 1201210 9b75a5178a 2.58 0.136 241.97 10.6",
                 "10Mar2015 0:09:00 1201219 9b75a51793 2.48 0.54 242.28 10.2",
                 ]
 LINE_BREAK = ""
+NONCE = '23df'
+FIRST_HASH = ("0000100308e7e0bea95a3e88e4e406c3"
+              "7133f0929c80866bda04bc0bce53a15")
+TITLE = 'Blockchain1'
+INITIAL_BLOCK_NO = 432
 
 
 def create_block():
@@ -59,3 +65,20 @@ def create_block_chain(previous_hash, nonce, prefix="0000"):
         hash_list.append((nonce, hash_code))
 
     return hash_list
+
+
+def create_data(number_of_hash_codes):
+    """Generate the data for the espeficied number of hash codes,
+    plus the previous code. For one house, the number of hash codes
+    should be 2, for 2, should be 3, and so on.
+    """
+    nonces, hash_codes = zip(*create_block_chain(FIRST_HASH, NONCE))
+    params = {'title': TITLE,
+              'block_no': INITIAL_BLOCK_NO,
+              'event_data': [create_block()] * number_of_hash_codes,
+              'nonce_list': nonces[:number_of_hash_codes],
+              'hash_list': hash_codes[:number_of_hash_codes],
+              'production': os.environ.get('PRODUCTION', False),
+              'size': number_of_hash_codes,
+              }
+    return params
