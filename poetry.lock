@@ -158,6 +158,17 @@ Flask = ">=0.9"
 Six = "*"
 
 [[package]]
+category = "main"
+description = "HTTP security headers for Flask."
+name = "flask-talisman"
+optional = false
+python-versions = "*"
+version = "0.7.0"
+
+[package.dependencies]
+six = ">=1.9.0"
+
+[[package]]
 category = "dev"
 description = "Clean single-source support for Python 3 and 2"
 name = "future"
@@ -659,7 +670,7 @@ python-versions = "*"
 version = "1.12.1"
 
 [metadata]
-content-hash = "4722896af02876c92079e6d0ef03efea873bada8879a15d236c71db4f22b61aa"
+content-hash = "d0bf7603ffbbcaebb5ac8dcabb341307d4c289568ce9037400177d311402fd4b"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -751,6 +762,10 @@ flask = [
 flask-cors = [
     {file = "Flask-Cors-3.0.8.tar.gz", hash = "sha256:72170423eb4612f0847318afff8c247b38bd516b7737adfc10d1c2cdbb382d16"},
     {file = "Flask_Cors-3.0.8-py2.py3-none-any.whl", hash = "sha256:f4d97201660e6bbcff2d89d082b5b6d31abee04b1b3003ee073a6fd25ad1d69a"},
+]
+flask-talisman = [
+    {file = "flask-talisman-0.7.0.tar.gz", hash = "sha256:468131464a249274ed226efc21b372518f442487e58918ccab8357eaa638fd1f"},
+    {file = "flask_talisman-0.7.0-py2.py3-none-any.whl", hash = "sha256:eaa754f4b771dfbe473843391d69643b79e3a38c865790011ac5e4179c68e3ec"},
 ]
 future = [
     {file = "future-0.18.2.tar.gz", hash = "sha256:b1bead90b70cf6ec3f0710ae53a525360fa360d306a86583adc6bf83a4db537d"},

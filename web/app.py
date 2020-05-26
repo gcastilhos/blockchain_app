@@ -1,10 +1,16 @@
 """
 Main Module for Blockchain1
 """
+import os
 from random import randint
 from flask import Flask, render_template, request, jsonify
+from flask_talisman import Talisman
 from bchain.bchain import create_hash, create_data
 app = Flask(__name__)
+
+
+if os.environ.get('PRODUCTION', None):
+    Talisman(app)
 
 
 @app.route("/")
