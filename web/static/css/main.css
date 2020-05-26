@@ -78,13 +78,21 @@ div.row {
 }
 
 div.left {
-    width: 15%;
+    width: 20%;
+    display: table-cell;
+}
+
+div.right {
+    width: 20%;
+    display: table-cell;
+}
+
+div.cell_left {
     display: table-cell;
     padding-right: 50px;
 }
 
-div.right {
-    width: 30%;
+div.cell_right {
     display: table-cell;
     padding-left: 50px;
 }
