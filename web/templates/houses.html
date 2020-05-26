@@ -1,12 +1,12 @@
 {% extends "houses_frame.html" %}
 {% block content %}
-        {% for i in range(1, 7) %}
+        {% for i in range(1, size) %}
         <div class="{{ 'left' if i % 2 == 1 else 'right' }}">
         <form>
             <div>
                 <img id="roof" src="/static/img/roof{{ i }}.png">
             </div>
-            <table v-bind:class="{bg_red: active[{{ i }}]}">
+            <table {% if size > 2 %}v-bind:class="{bg_red: active[{{ i }}]}" {% endif %}>
                 <tr>
                     <th colspan="4">Consumption Data registered in a Blockchain Database</th>
                 </tr>
