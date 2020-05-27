@@ -2,7 +2,7 @@
 
 (function() {
 
-    function _getHash(id) {
+    var _getHash = function(id) {
         axios
             .get('/hash?eventData=' + app.eventData[id] +
                  '&previous_hash=' + app.previous_hash[id])
@@ -16,20 +16,29 @@
                     _getHash(id + 1);
                 }
             });
-    }
+    };
 
-    function _fetchData() {
+    var _fetchData = function() {
         axios
             .get('/eventdata')
             .then(response => {
                 app.eventData = response.data;
             });
-    }
+    };
+
+    var _blockNoFormat = function(values) {
+        var size = values.length;
+        var new_values = new Array(size);
+        for (var i = 0; i < size; i++) {
+            new_values[i] = ("000" + values[i]).slice(-6);
+        }   
+        return new_values; 
+    };
 
     var app = new Vue({
         el:'#app',
         data: {
-            block_no: sessionStorage.block_no.split(","),
+            block_no: _blockNoFormat(sessionStorage.block_no.split(",")),
             hash: sessionStorage.hash_code.split(","),
             original_hash: sessionStorage.hash_code.split(","),
             previous_hash: sessionStorage.previous_hash.split(","),
