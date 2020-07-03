@@ -10,11 +10,13 @@ def event_generator():
     data_set = fetch_data_set()
     columns = get_columns(data_set.dtypes)
     position = 0
+    alternating_factor = 1
     while True:
         factor, position = reset_position(position, data_set)
         records = data_set.iloc[position:position + factor + 1].copy()
         position += factor + 1 
-        update_values(records, factor, columns)
+        update_values(records, alternating_factor * factor, columns)
+        alternating_factor = -alternating_factor
         yield records.to_json(index=True, orient="records")
 
 
