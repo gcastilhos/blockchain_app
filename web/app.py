@@ -10,6 +10,8 @@ Talisman(app,
          content_security_policy=os.environ.get('CSP_DIRECTIVES',
                                                 DEFAULT_CSP_POLICY),
          content_security_policy_nonce_in=['script-src'])
+from web.queue_manager import event_generator
+queue_events = event_generator()
 
 
 @app.route("/")
@@ -31,3 +33,10 @@ def hashcode():
 @app.route("/houses")
 def houses():
     return render_template('houses.html', **create_data(6))
+
+
+@app.route("/events")
+def events():
+    return app.response_class(response=next(queue_events),
+                              mimetype='application/json'
+                              )
