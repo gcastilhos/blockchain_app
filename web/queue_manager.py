@@ -13,7 +13,7 @@ def event_generator():
     alternating_factor = 1
     while True:
         factor, position = reset_position(position, data_set)
-        records = data_set.iloc[position:position + factor + 1].copy()
+        records = data_set.iloc[position:position + 1].copy()
         position += factor + 1 
         update_values(records, alternating_factor * factor, columns)
         alternating_factor = -alternating_factor

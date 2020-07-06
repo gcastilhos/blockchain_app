@@ -33,6 +33,10 @@ export CSP_DIRECTIVES="default-src 'self'; img-src *; script-src 'unsafe-eval' '
 * Flask
 * Vue.js
 
+## Event Queue
+
+A third phase of the project includes a remote API providing records on a minute-by-minute basis. The actual API hosted on [heroku.com](https://eventqueue.herokuapp.com/events) will provided a record upon request. A queue runs on the server and guarantees that every record is unique.
+
 ## Authors
 
 [Antonio Santos](mailto:1@2)
