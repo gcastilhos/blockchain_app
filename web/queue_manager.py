@@ -2,6 +2,7 @@
 import os
 import pandas as pd
 from datetime import datetime, timedelta
+from functools import partial
 import pickle
 from random import randint
 
@@ -17,15 +18,20 @@ def event_generator():
         position += factor + 1 
         update_values(records, alternating_factor * factor, columns)
         alternating_factor = -alternating_factor
-        yield records.to_json(index=True, orient="records")
+        yield records.to_json(index=False, orient="split")
 
 
 def fetch_data_set():
 
+    def date_offset(min_date, a_date):
+        offset_date = datetime.date(datetime.now()) + (datetime.date(a_date) - min_date)
+        return datetime.strftime(offset_date, "%d/%m/%Y")
+
     def change_dates():
         data_set.Date = pd.to_datetime(data_set.Date)
         min_date = datetime.date(data_set.Date.min()) 
-        data_set.Date = data_set.Date.apply(lambda val: datetime.strftime(datetime.date(datetime.now()) + (datetime.date(val) - min_date), "%d/%m/%Y"))
+        dt_offset = partial(date_offset, min_date)
+        data_set.Date = data_set.Date.apply(dt_offset)
 
     data_set = pickle.load(open(os.path.join(os.environ['QUEUE_DATA'], 'appliances_list.pickle'), 'rb'))
     change_dates()
