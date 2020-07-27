@@ -13,7 +13,9 @@ Talisman(app,
          content_security_policy_nonce_in=['script-src'])
 from web.queue_manager import event_generator
 queue_events = event_generator()
+from web.generator_lock import GeneratorLock
 cors = CORS(app, resources={r"/events": {"origins": "http://localhost:8080"}})
+generator = GeneratorLock(queue_events)
 
 
 @app.route("/")
@@ -42,7 +44,7 @@ def events():
     event = None
     while event is None:
         try:
-            event = next(queue_events)
+            event = generator.next()
         except ValueError as error:
             print(error)
     return app.response_class(response=event, mimetype='application/json')
