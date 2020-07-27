@@ -3,6 +3,7 @@ Provides locking mechanism for the data generator.
 """
 import threading
 import unittest
+from web.queue_manager import event_generator
 
 
 class GeneratorLock:
@@ -32,3 +33,8 @@ class TestGeneratorLock(unittest.TestCase):
         self.assertIsNone(number_list[-1], None)
         self.assertEqual(number_list[-2], 99 ** 5)
 
+    def test_generator_with_events_queue(self):
+        event_queue = event_generator()
+        generator = GeneratorLock(event_queue)
+        result = generator.next()
+        self.assertTrue(isinstance(result, str))
