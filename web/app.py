@@ -4,7 +4,6 @@ Main Module for Blockchain1
 import os
 from flask import Flask, render_template, request, jsonify
 from flask_talisman import Talisman, DEFAULT_CSP_POLICY
-from flask_cors import CORS
 from bchain.bchain import create_hash, create_data, create_block
 app = Flask(__name__)
 Talisman(app,
@@ -14,9 +13,11 @@ Talisman(app,
 from web.queue_manager import event_generator
 queue_events = event_generator()
 from web.generator_lock import GeneratorLock
-cors = CORS(app, resources={r"/events": {"origins": "http://localhost:8080"}})
 generator = GeneratorLock(queue_events)
 
+if os.environ.get('TEST_ENV'):
+    from flask_cors import CORS
+    cors = CORS(app, resources={r"/events": {"origins": "http://localhost:8080"}})
 
 @app.route("/")
 def index():
