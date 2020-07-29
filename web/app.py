@@ -17,7 +17,9 @@ generator = GeneratorLock(queue_events)
 
 if os.environ.get('TEST_ENV'):
     from flask_cors import CORS
-    cors = CORS(app, resources={r"/events": {"origins": "http://localhost:8080"}})
+    cors = CORS(app, resources={r"/events": {"origins": "http://localhost:8080"},
+                                r"/hash": {"origins": "http://localhost:8080"}})
+
 
 @app.route("/")
 def index():
