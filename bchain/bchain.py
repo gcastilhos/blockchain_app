@@ -42,14 +42,13 @@ def create_block():
 
 
 def create_hash(request):
-    """Creates the hash based on parameters `previous_hash`
-    and `eventData` in the request object.
+    """Creates the hash based on parameters `previous` (hash)
+    and (event) `data` in the request object.
     """
     encoder = sha256()
     params = dict(parse_qsl(request.query_string))
-    logger.info("Hash values: %s, %s", *params.values())
-    return proof_of_work(params.get(b'previous_hash'),
-                         params.get(b'eventData'))
+    return proof_of_work(params.get(b'previous'),
+                         params.get(b'data'))
 
 
 def create_block_chain(previous_hash, nonce, prefix="0000"):
