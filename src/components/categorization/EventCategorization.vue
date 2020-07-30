@@ -1,18 +1,18 @@
 <template>
   <div id="event_categorization">
-    <div class="table">
+    <div class="container-fluid">
       <div class="row">
-        <div class="cell">
+        <div class="col-8">
           <table-header v-bind:title-h2="titleEvents"
                         v-bind:title-h4="subTitleEvents">
           </table-header>
         </div>
-        <div class="cell">
+        <div class="col-4">
           <table-header v-bind:title-h4="titleTotals"></table-header>
         </div>
       </div>
-      <div>
-        <div class="cell dark_blue">
+      <div class="row">
+        <div class="col-8 dark-blue">
           <table class="categ">
             <tr> 
               <th v-for="(item, index) in header"
@@ -33,7 +33,7 @@
             </tr>
           </table>
         </div>
-        <div class="cell">
+        <div class="col-4">
           <event-number v-bind:event-number-text="eventNumbers[0]"></event-number>
           <event-number v-bind:event-number-text="eventNumbers[1]"></event-number>
           <table id="totals" class="totals">
@@ -144,43 +144,37 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /**
  * Table-like DIVs
  */
 
 div {
-  font-size: 8pt;
+  font-size: 6pt;
   font-family: Arial, Helvetica, Sans-serif;
 }
 
-div.table {
+div.container-fluid {
   padding: 50px;
-  table-layout: fixed;
 }
 
-div.head div.cell.header {
+div.head div.col.header {
   font-weight: bold;
   word-wrap: break-word;
   border-bottom: 1px black solid;
 }
 
-div.cell {
-  display: table-cell;
+div.col {
   padding: 5px 10px;
 }
 
-.dark_blue {
+.dark-blue {
   background-color: #038cfc;
 }
 
-div.cell.record.original {
+div.col.record.original {
   width: 600px;
   white-space: nowrap;
-}
-
-div.cell.separator {
-  width:75px;
 }
 
 /**
@@ -191,8 +185,8 @@ div#totals.table {
   padding: 0;
 }
 
-div#totals.table .row .cell {
-  font-size: 12pt;
+div#totals.table .row .col {
+  font-size: 10pt;
 }
 
 /**
@@ -222,7 +216,7 @@ div.final_hash div.row.yellow div.cell {
 
 div.note {
   text-align: center;
-  font-size: 14pt;
+  font-size: 12pt;
   font-weight: bold;
   border: 1px black solid;
   padding: 2px;
@@ -267,10 +261,6 @@ div.note {
 
 .text_left {
   text-align: left;
-}
-
-.colspan {
-  column-span: all;
 }
 
 .red_border {

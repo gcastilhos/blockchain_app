@@ -42,6 +42,8 @@ import VueRouter from 'vue-router';
 import EventsHouses from './components/houses/EventsHouses.vue'
 import EventsHash from './components/hash/EventsHash.vue'
 import EventCategorization from './components/categorization/EventCategorization.vue'
+import Picogrid from './components/picogrid/Picogrid.vue'
+import Picogrid11 from './components/picogrid11/Picogrid11.vue'
 import CellSeparator from './components/CellSeparator.vue'
 Vue.use(VueRouter);
 
@@ -51,8 +53,8 @@ var router = new VueRouter({
     {path: '/eventshouses', component: EventsHouses},
     {path: '/eventshash', component: EventsHash},
     {path: '/eventcategorization', component: EventCategorization},
-    {path: '/picogrid', component: CellSeparator},
-    {path: '/picogrid11', component: CellSeparator},
+    {path: '/picogrid', component: Picogrid},
+    {path: '/picogrid11', component: Picogrid11},
     {path: '/picogridview', component: CellSeparator}
   ]
 })

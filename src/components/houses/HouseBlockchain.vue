@@ -4,7 +4,7 @@
     <div class="house_no">Block <span v-html="lpad(houseNo + 1)" /></div>
     <img class="roof" src="../../assets/roof.png">
   </div>
-  <table v-bind:class="{bg_red: active && blocks > 1 }">
+  <table v-bind:class="{'bg-red': active && blocks > 1 }">
     <tr>
       <th colspan="4">Consumption Data registered in a Blockchain Database</th>
     </tr>
@@ -36,13 +36,13 @@
         <input class="hash" disabled="true" type="text" v-model="hash" />
       </td>
     </tr>
-  </table>
-  <br />
-  <table class="no_border">
-    <tr>
+    <tr >
+      <td style="background-color: lightBlue, border: 0" colspan="4"><br></td>
+    </tr>
+    <tr class="no-border">
       <td class="label narrow">SHA&nbsp;256</td>
       <td class="text" colspan="3"> 
-        <input class="hash"  v-bind:class="{bg_red: active}" disabled="true" type="text" v-model="originalHash" />
+        <input class="hash"  v-bind:class="{'bg-red': active}" disabled="true" type="text" v-model="originalHash" />
       </td>
     </tr>
   </table>
@@ -97,12 +97,12 @@ export default {
  */
 table {
     border: solid 2px grey; 
-    border-spacing: 5px;
+    border-spacing: 5px !important;
     background-color: #e2f0d9;
     width: 432px;
 }
 
-table.no_border {
+table.no-border {
     border: none;
     background-color: white;
 }
@@ -172,7 +172,7 @@ td.red {
     font-family: Cablibri, Arial, Sans-serif;
 }
 
-.bg_red {
+.bg-red {
     background-color: red;
 }
 

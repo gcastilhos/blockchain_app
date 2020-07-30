@@ -1,32 +1,29 @@
 <template>
   <div id="events_houses">
-    <div class="table">
-      <div class="row">
-        <div class="left"></div>
-        <h2>Blockchain1</h2>
-        <div v-for="(row, indRow) in rows"
-             :key="'r_' + indRow"
-             class="row">
-          <div v-for="(column, indCol) in numCols(row)"
-               :key="'c_' + indCol"
-               v-bind:class="{ cell_left: column % 2 == 1, cell_right: column % 2 == 0 }">
-            <house-blockchain v-on:get-hash="getNewHash($event)"
-                              :index="getIndex(row, column)"
-                              :houseNo="getIndex(row, column)"
-                              :active="active[getIndex(row, column)]"
-                              :hash="hash[getIndex(row, column)]"
-                              :eventData="eventData[getIndex(row, column)]"
-                              :blockNo="blockNo + getIndex(row, column)"
-                              :previousHash="previousHash[getIndex(row, column)]"
-                              :originalHash="originalHash[getIndex(row, column)]"
-                              :blocks="blocks"
-                              :nonce="nonce[getIndex(row, column)]">
-            </house-blockchain>
-          </div>
+    <div class="container-fluid">
+      <div v-for="(row, indRow) in rows"
+           :key="'r_' + indRow"
+           class="row">
+        <div v-for="(column, indCol) in numCols(row)"
+             :key="'c_' + indCol"
+             class="col-6"
+             :class="{ 'text-left': column % 2 == 1, 'text-right': column % 2 == 0 }">
+          <house-blockchain v-on:get-hash="getNewHash($event)"
+                            :index="getIndex(row, column)"
+                            :houseNo="getIndex(row, column)"
+                            :active="active[getIndex(row, column)]"
+                            :hash="hash[getIndex(row, column)]"
+                            :eventData="eventData[getIndex(row, column)]"
+                            :blockNo="blockNo + getIndex(row, column)"
+                            :previousHash="previousHash[getIndex(row, column)]"
+                            :originalHash="originalHash[getIndex(row, column)]"
+                            :blocks="blocks"
+                            :nonce="nonce[getIndex(row, column)]">
+          </house-blockchain>
         </div>
-        <div class="right"></div>
       </div>
-    </div>
+    <div class="right"></div>
+  </div>
   </div>
 </template>
 
@@ -127,30 +124,4 @@ export default {
 </script>
 
 <style>
-/**
- * Labels and titles elements
- */
-h2 {
-    font-family: Calibri, Arial, Sans-serif;
-}
-
-div.left {
-    width: 20%;
-    display: table-cell;
-}
-
-div.right {
-    width: 20%;
-    display: table-cell;
-}
-
-div.cell_left {
-    display: table-cell;
-    padding-right: 50px;
-}
-
-div.cell_right {
-    display: table-cell;
-    padding-left: 50px;
-}
 </style>
