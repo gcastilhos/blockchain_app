@@ -29,6 +29,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 * axios
 * express
 * jest
+* node-fetch
 * sha256
 * vue-router
 * vuex
