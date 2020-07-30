@@ -12,7 +12,6 @@ const DATA_URI = process.env.DATA_URI || 'https://eventqueue.herokuapp.com/event
 app.get('/events', (req, res) => {
   console.log('Events requested')
   console.log(`Data URI: ${DATA_URI}`)
-  var jsonResponse
   fetch(DATA_URI, {method: 'GET'})
     .then(response => response.json())
     .then(json => {
