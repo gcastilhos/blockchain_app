@@ -5,19 +5,22 @@
         <nav class="navbar">
           <ul class="nav justify-content-center">
             <li class="nav-item">
-              <router-link to="/eventshouses" class="nav-link active">Exemplo de Blockchain</router-link>
+              <router-link to="/eventshouses" class="nav-link active">Blockchain Demo</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/eventshash" class="nav-link">Hashes de Eventos</router-link>
+              <router-link to="/eventshash" class="nav-link">Events Hashes</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/eventcategorization" class="nav-link">Categorias de Eventos</router-link>
+              <router-link to="/eventcategorization" class="nav-link">Event Categories</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/picogrid" class="nav-link">Categorias de um Picogrid</router-link>
+              <router-link to="/picogrid" class="nav-link">Picogrid Categories</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/picogrid11" class="nav-link">Hashes de 11 Picogrids</router-link>
+              <router-link to="/picogrid11" class="nav-link">11 Picogrid Hashes</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/picogridview" class="nav-link">Picogrid View</router-link>
             </li>
           </ul>
         </nav>
@@ -49,7 +52,8 @@ var router = new VueRouter({
     {path: '/eventshash', component: EventsHash},
     {path: '/eventcategorization', component: EventCategorization},
     {path: '/picogrid', component: CellSeparator},
-    {path: '/picogrid11', component: CellSeparator}
+    {path: '/picogrid11', component: CellSeparator},
+    {path: '/picogridview', component: CellSeparator}
   ]
 })
 
