@@ -1,12 +1,12 @@
 <template>
   <div id="events_hash" class="container-fluid">
     <div class="row">
-      <div class="col-8">
+      <div  id="events_records" class="col-8">
         <table>
           <thead>
             <tr>
-              <th class="header big-font black" colspan="15">
-                  <span>DAILY EVENT TABLE - BATCH {{ batch }}</span>
+              <th class="big-font black" colspan="15">
+                <span>DAILY EVENT TABLE - BATCH {{ batch }}</span>
               </th>
             </tr>
             <tr>
@@ -29,6 +29,13 @@
             <tr>
               <th class="big-font red">
                 <span>EVENT HASHING</span>
+              </th>
+            </tr>
+            <tr>
+              <th class="">
+                <br>
+                <br>
+                <br>
               </th>
             </tr>
           </thead>
@@ -143,41 +150,39 @@ export default {
 }
 </script>
 
-<style>
-/**
- * app div
- */
-#app {
-  font-size: 8pt;
-  font-family: Arial, Helvetica, Sans-serif;
-}
-
+<style scoped>
 /**
  * Table
  */
 
+#events_records {
+  overflow-x: scroll;
+  width: 700px;
+}
+
 table {
-    padding: 50px;
-    border-spacing: 0;
+  padding: 0px;
+  border-spacing: 0;
 }
 
 .header {
-    font-weight: bold;
-    word-wrap: break-word;
-    border-bottom: 1px black solid;
+  font-weight: bold;
+  word-wrap: break-word;
+  border-bottom: 1px black solid;
 }
 
 td, th {
-    padding: 2px 4px;
+  padding: 2px 4px;
 }
 
 .dark-blue {
-    background-color: #038cfc;
+  background-color: #038cfc;
 }
 
 .record.original {
-    text-align: right;
-    white-space: nowrap;
+  text-align: right;
+  white-space: nowrap;
+  padding: 5px;
 }
 
 /**
@@ -185,33 +190,33 @@ td, th {
  */
 
 .text {
-    font-family: "Lucida Console", Monaco, Courier, monospace;
+  font-family: "Lucida Console", Monaco, Courier, monospace;
 }
 
 div.text.hash {
-    background-color: lightGrey;
-    border: 1px black solid;
-    padding: 2px;
-    text-align: center;
+  background-color: lightGrey;
+  border: 1px black solid;
+  padding: 2px;
+  text-align: center;
 }
 
 .final-hash {
-    background-color: lightBlue;
-    padding: 5px 0;
-    text-align: center;
+  background-color: lightBlue;
+  padding: 5px 0;
+  text-align: center;
 }
 
 .final-hash.yellow {
-    padding: 10px;
+  padding: 10px;
 }
 
 div.note {
-    text-align: center;
-    font-size: 10pt;
-    font-weight: bold;
-    border: 1px black solid;
-    padding: 2px;
-    background-color: white;
+  text-align: center;
+  font-size: 10pt;
+  font-weight: bold;
+  border: 1px black solid;
+  padding: 2px;
+  background-color: white;
 }
 
 /**
@@ -219,30 +224,30 @@ div.note {
  */
 
 .big-font {
-    font-size: 16pt;
-    font-family: Arial, Helvetica, Sans-serif;
-    font-weight: bold;
-    text-align: center;
+  font-size: 16pt;
+  font-family: Arial, Helvetica, Sans-serif;
+  font-weight: bold;
+  text-align: center;
 }
 
 .red {
-    color: red;
+  color: red;
 }
 
 .light-blue {
-    background-color: lightBlue;
+  background-color: lightBlue;
 }
 
 .yellow {
-    background-color: yellow;
+  background-color: yellow;
 }
 
 .mono {
-    font-family: "Lucida Console", Monaco, Courier, monospace;
+  font-family: "Lucida Console", Monaco, Courier, monospace;
 }
 
 div.no-lateral-padding {
-    padding-right: 0;
-    padding-left: 0;
+  padding-right: 0;
+  padding-left: 0;
 }
 </style>
