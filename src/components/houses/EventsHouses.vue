@@ -4,10 +4,10 @@
       <div v-for="(row, indRow) in rows"
            :key="'r_' + indRow"
            class="row">
+        <div class="col-1"></div>
         <div v-for="(column, indCol) in numCols(row)"
              :key="'c_' + indCol"
-             class="col-6"
-             :class="{ 'text-left': column % 2 == 1, 'text-right': column % 2 == 0 }">
+             class="col-5 text-left">
           <house-blockchain v-on:get-hash="getNewHash($event)"
                             :index="getIndex(row, column)"
                             :houseNo="getIndex(row, column)"
@@ -21,6 +21,7 @@
                             :nonce="nonce[getIndex(row, column)]">
           </house-blockchain>
         </div>
+        <div class="col-1"></div>
       </div>
     <div class="right"></div>
   </div>
@@ -124,4 +125,7 @@ export default {
 </script>
 
 <style>
+#events_houses {
+  padding-bottom: 50px;
+}
 </style>
