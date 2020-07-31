@@ -12,8 +12,8 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-8 dark-blue">
-          <table class="categ">
+        <div class="col-8">
+          <table class="categ dark-blue">
             <tr> 
               <th v-for="(item, index) in header"
                   v-html="item"
@@ -298,6 +298,7 @@ table.categ, table.totals {
 
 table.categ {
   border-spacing: 0px 7px;
+  padding: 0px 10px 5px 10px;
 }
 
 table.totals {
