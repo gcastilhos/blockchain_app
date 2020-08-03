@@ -3,7 +3,7 @@
   <table class="roof-table" :class="{'bg-red': active && blocks > 1 }">
     <tr>
       <td colspan="4">
-        <div class="house-no">Block <span v-html="lpad(houseNo + 1)" /></div>
+        <div class="house-no">Block <span v-html="numberFormat(houseNo + 1)" /></div>
         <img class="roof" src="../../assets/roof.png">
       </td>
     </tr>
@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import {lpad} from '@/stringformat'
 
 export default {
   props: {
@@ -74,14 +75,8 @@ export default {
     }
   },
   methods: {
-    lpad: function(num) {
-      if (num < 10) {
-        return "&nbsp;&nbsp;" + num;
-      } else if (num < 100) {
-        return "&nbsp;" + num;
-      } else {
-        return num;
-      }
+    numberFormat: function(num) {
+      return lpad("&nbsp;", num)
     },
     getNewHash: function() {
       this.$emit('get-hash', {id: this.index, data: this.evData});

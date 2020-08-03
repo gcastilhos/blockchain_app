@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div><h5 v-html="'Picogrid 001.001.0' + lpad(picogridNumber)"></h5></div>
+    <div><h5 v-html="'Picogrid 001.001.' + numberPadded(picogridNumber)"></h5></div>
     <table id="totals">
       <tr>
         <th v-for="(item, index) in categoryHeader"
@@ -24,6 +24,7 @@
 <script>
 import axios from 'axios'
 import {MOCK_DATA} from '@/mockdata'
+import {lpad} from '@/stringformat'
 
 const MAX_BATCH = parseInt(process.env.VUE_APP_MAX_BATCH || 50)
 const DATA_API_URI = process.env.VUE_APP_DATA_API_URI || "/events"
@@ -50,12 +51,8 @@ export default {
     }
   },
   methods: {
-    lpad: function(num) {
-      if (num < 10) {
-        return "0" + num;
-      } else if (num < 100) {
-        return num;
-      }
+    numberPadded: function(numberRef) {
+      return lpad("0", numberRef)
     },
     getData: async function(next_batch) {
       var data
