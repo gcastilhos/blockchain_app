@@ -77,7 +77,7 @@ export default {
         let totals = this.categoryTotals.slice()
         totals.splice(0, 0, this.picogridNumber)
         totals.splice(0, 0, this.batch)
-        this.$store.dispatch('addPicogridTotals', {totals: totals})
+        this.$store.dispatch('addPicogridTotals', {totals: totals, index: 0})
         this.records.splice(0, MAX_BATCH)
       }
       this.batch = this.batch + 1

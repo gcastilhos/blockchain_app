@@ -63,7 +63,7 @@ export default {
   },
   computed: {
     picogridItems: function() {
-      return this.$store.getters.hashCodes
+      return this.$store.getters.hashCodes[0]
     }
   }
 }
