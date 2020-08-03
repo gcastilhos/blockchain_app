@@ -1,15 +1,15 @@
 <template>
-  <div class="container-md">
-    <div class="row info-bar">
+  <div class="container-md" id="picogrid_view">
+    <div class="row info-bar header">
       <div class="col-md-2"><span class="font-weight-bold">Block Nr</span></div>
       <div class="col-md-2"><span class="font-weight-bold">{{ blockNumber }}</span></div>
       <div class="col-md-8"><span class="font-weight-bold">Timestamp (DD-MM-YY HH:MM:SS)<br>{{ currentDate }}</span></div>
     </div>
-    <div class="row">
+    <div class="row header">
       <div class="col-md-4"><span class="font-weight-bold">PREVIOUS HASH</span></div>
       <div class="col-md-8"><span>0005100308e7e0bea95a3e88e4e406c37133f0929c80866bda04bc0bce53a14</span></div>
     </div>
-    <div class="row">
+    <div class="row header">
       <div class="col-md-3">Picogrid Nr</div>
       <div class="col-md-1">CAT</div>
       <div class="col-md-2">Power [W/H]</div>
@@ -17,13 +17,13 @@
     </div>
     <div v-for="index in 11"
          :key="'pv_' + index"
-         class="row">
+         class="row data">
       <PicogridData :picogridReference="index"></PicogridData>
     </div>
-    <div class="row info-bar">
+    <div class="row info-bar footer">
       <div class="col-md-2"><span class="font-weight-bold">POW (DoD)</span></div>
       <div class="col-md-2"><span class="font-weight-bold">Number of ZEROS</span><br>3</div>
-      <div class="col-md-8"><span class="font-weight-bold">BLOCK HASH DIGEST<br>0005100308e7e0bea95a3e88e4e406c37133f0929c80866bda04bc0bce53a14</span></div>
+      <div class="col-md-8"><span class="font-weight-bold">BLOCK HASH DIGEST<br>{{ picogridTotalHash |  viewHashCode }}</span></div>
     </div>
   </div>
 </template>
@@ -53,13 +53,34 @@ export default {
       let am_pm = hours >= 12 ? 'PM' : 'AM'
       let time = `${hours > 12 ? hours - 12 : hours}:${currentDate.getMinutes()}:${currentDate.getSeconds()} ${am_pm}`
       return `${today} ${time}`
+    },
+    picogridTotalHash: function() {
+      return this.$store.getters.hashCodes
+    }
+  },
+  filters: {
+    viewHashCode: function(hashes) {
+      let hash = hashes[1]
+      return hash[hash.length - 1]
     }
   }
 }
 </script>
 
-<style scoped>
+<style>
+#picogrid_view div {
+  font-size: 12px;
+  color: darkBlue;
+}
+
 div.info-bar div {
  margin: auto 0;
+}
+
+#picogrid_view div.row.data,
+#picogrid_view div.row.header,
+#picogrid_view div.row.footer {
+  border: 1px solid darkBlue;
+  margin: 4px 0;
 }
 </style>

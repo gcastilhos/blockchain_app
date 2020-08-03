@@ -2,20 +2,18 @@
   <div class="col-md-12">
     <div class="row">
       <div class="col-md-3">{{ picogridNumber }}</div>
-      <div class="col-md-1">Total</div>
-      <div class="col-md-2">4561</div>
-      <div class="col-md-6">0005100308e7e0bea95a3e88e4e406c37133f0929c80866bda04bc0bce53a14</div>
+      <div class="col-md-1"><a class="show-data" @click="showData = !showData">{{ showDataLabel }}</a> Total</div>
+      <div class="col-md-2">{{ totalConsumption }}</div>
+      <div class="col-md-6">{{ totalConsumptionHash }}</div>
     </div>
     <div v-for="(category, index) in categoryTotals"
          :key="'pr' + picogridNumber + '_' + index" 
-         class="row">
+         class="row"
+         v-show="showData">
       <div class="col-md-3">{{ picogridNumber }}</div>
       <div class="col-md-1">{{ category[0] }}</div>
-      <div class="col-md-2">{{ parseInt(category[1]) }}</div>
-      <div class="col-md-6">{{ categoryHash(index) }}</div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 space"></div>
+      <div class="col-md-2">{{ parseFloat(category[1]).toFixed(2) }}</div>
+      <div class="col-md-6">{{ categoryTotalHash(index) }}</div>
     </div>
   </div>
 </template>
@@ -37,12 +35,12 @@ export default {
       categories: [],
       records: [],
       batch: 1,
-      header: []
+      showData: false
     }
   },
   methods: {
-    categoryHash: function(numberReference) {
-      return sha256(numberReference)
+    categoryTotalHash: function(index) {
+      return sha256(parseFloat(this.categoryTotals[index][1]).toFixed(2))
     },
     getData: async function(next_batch) {
       var data
@@ -55,7 +53,6 @@ export default {
       }
       this.records.push(data.data[0])
       this.batch = next_batch
-      this.header = data.columns
     }
   },
   mounted: function() {
@@ -68,7 +65,7 @@ export default {
         let totals = this.categoryTotals.slice()
         totals.splice(0, 0, this.picogridReference)
         totals.splice(0, 0, this.batch)
-        // this.$store.dispatch('addPicogridTotals', {totals: totals})
+        this.$store.dispatch('addPicogridTotals', {totals: totals, index: 1})
         this.records.splice(0, MAX_BATCH)
       }
       this.batch = this.batch + 1
@@ -83,6 +80,18 @@ export default {
         categories.push(String.fromCharCode(65 + row)) 
       })
       return categories
+    },
+    totalConsumption: function() {
+      if (this.categoryTotals.length > 0) {
+        return this.categoryTotals
+                 .map(pair => parseFloat(pair[1]))
+                 .reduce((accum, value) => accum + value)
+                 .toFixed(2)
+      }
+      return []
+    },
+    totalConsumptionHash: function() {
+      return sha256(this.totalConsumption)
     },
     picogridNumber: function() {
       return "001.001." + lpad("0", this.picogridReference)
@@ -108,6 +117,9 @@ export default {
         pair = entries.next()
       }
       return totals.sort()
+    },
+    showDataLabel: function() {
+      return this.showData ? "Hide" : "Show"
     }
   }
 }
@@ -116,5 +128,11 @@ export default {
 <style>
 div.space {
   height: 20px;
+  border: none !important;
+}
+
+.show-data {
+  text-decoration: underline !important;
+  cursor: pointer;
 }
 </style>
