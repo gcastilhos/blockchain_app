@@ -27,7 +27,7 @@ export default new Vuex.Store({
       return state.hashCodes
     },
     picogridTotalsCurrent: state => {
-      return state.totalsIndex >=0 ? state.picogridTotals[state.totalsIndex] : undefined
+      return state.totalsIndex >= 0 ? state.picogridTotals[state.totalsIndex] : undefined
     },
     currentIndex: state => {
       return state.totalsIndex
