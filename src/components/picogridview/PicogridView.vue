@@ -9,9 +9,9 @@
         <div class="timestamp-info">{{ currentDate }}</div>
       </div>
     </div>
-    <div class="row header">
-      <div class="col-md-4 main-label"><span class="font-weight-bold">PREVIOUS HASH</span></div>
-      <div class="col-md-8 main-info"><span>0000510308e7e0bea95a3e88e4e406c37133f0929c80866bda04bc0bce53a14</span></div>
+    <div class="row">
+      <div class="col-md-4 main-label previous_hash"><span class="font-weight-bold previous_hash">PREVIOUS HASH</span></div>
+      <div class="col-md-8 main-info previous_hash"><span class="previous_hash">0000510308e7e0bea95a3e88e4e406c37133f0929c80866bda04bc0bce53a14</span></div>
     </div>
     <div class="row header secondary">
       <div class="col-md-3 secondary-label">Picogrid Nr</div>
@@ -111,6 +111,7 @@ export default {
 
 .secondary-label {
   background-color: white;
+  font-size: 12pt !important;
 }
 
 .row.footer {
@@ -140,5 +141,17 @@ span.middle {
   background-color: white;
   padding: 0 15px;
   font-size: 14pt !important;
+}
+
+div.previous_hash {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: none !important;
+}
+
+span.previous_hash {
+  margin: 5px 0px !important;
+  display: inline-block;
+  font-size: 14pt;
 }
 </style>
