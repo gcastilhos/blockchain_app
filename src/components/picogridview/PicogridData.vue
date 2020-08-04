@@ -1,19 +1,24 @@
 <template>
   <div class="col-md-12">
-    <div class="row">
+    <div class="row"
+         :style="{backgroundColor: rowColor}">
       <div class="col-md-3">{{ picogridNumber }}</div>
-      <div class="col-md-1"><a class="show-data" @click="showData = !showData">{{ showDataLabel }}</a> Total</div>
+      <div class="col-md-1"><img :src="require(`../../assets/triangle_link${downArrow}.png`)" class="show-data" @click="showDataExecute">Total</div>
       <div class="col-md-2">{{ totalConsumption }}</div>
       <div class="col-md-6">{{ totalConsumptionHash }}</div>
     </div>
     <div v-for="(category, index) in categoryTotals"
          :key="'pr' + picogridNumber + '_' + index" 
          class="row"
+         :style="{backgroundColor: index % 2 == 0 ? 'white' : rowColor}"
          v-show="showData">
       <div class="col-md-3">{{ picogridNumber }}</div>
       <div class="col-md-1">{{ category[0] }}</div>
       <div class="col-md-2">{{ parseFloat(category[1]).toFixed(2) }}</div>
       <div class="col-md-6">{{ categoryTotalHash(index) }}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 space"></div>
     </div>
   </div>
 </template>
@@ -29,12 +34,13 @@ const DATA_API_URI = process.env.VUE_APP_DATA_API_URI || "/events"
 const HEADERS = JSON.parse(process.env.VUE_APP_HEADERS || "{}")
 
 export default {
-  props: ['picogridReference'],
+  props: ['picogridReference', 'rowColor'],
   data: function() {
     return {
       categories: [],
       records: [],
       batch: 1,
+      downArrow: "",
       showData: false
     }
   },
@@ -53,6 +59,10 @@ export default {
       }
       this.records.push(data.data[0])
       this.batch = next_batch
+    },
+    showDataExecute: function() {
+      this.showData = !this.showData
+      this.downArrow = this.showData ? "_down" : ""
     }
   },
   mounted: function() {
@@ -129,10 +139,15 @@ export default {
 div.space {
   height: 20px;
   border: none !important;
+  background-color: white;
 }
 
 .show-data {
-  text-decoration: underline !important;
   cursor: pointer;
+  width: 12px;
+  height: 12px;
+  margin-right: 5px;
+  margin-left: -2px;
+  margin-top: -3px;
 }
 </style>
