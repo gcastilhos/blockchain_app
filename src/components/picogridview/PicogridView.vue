@@ -6,7 +6,7 @@
       <div class="col-md-8 timestamp-label">
         <span class="font-weight-bold">Timestamp (DD-MM-YY HH:MM:SS)</span>
         <br>
-        <div class="timestamp-info">{{ currentDate }}</div>
+        <span class="timestamp-info">{{ currentDate }}</span>
       </div>
     </div>
     <div class="row">
@@ -26,9 +26,16 @@
                     :rowColor="rowColors[index - 1]"></PicogridData>
     </div>
     <div class="row info-bar footer">
-      <div class="col-md-2 main-label"><span class="font-weight-bold">POW (DoD)</span></div>
-      <div class="col-md-2 main-label"><span class="font-weight-bold">Number of ZEROS</span><br><div class="main-info">4</div></div>
-      <div class="col-md-8 main-label"><span class="font-weight-bold">BLOCK HASH DIGEST</span><br><div class="main-info">{{ picogridTotalHash |  viewHashCode }}</div></div>
+      <div class="col-md-2 main-label"><span class="middle font-weight-bold">POW (DoD)</span></div>
+      <div class="col-md-2 main-label text-center timestamp-label bg-grey">
+        <span class="font-weight-bold border-bottom">Number of ZEROS</span>
+        <div class="main-info timestamp-info">4</div>
+      </div>
+      <div class="col-md-8 main-label text-center timestamp-label bg-grey">
+        <span class="font-weight-bold">BLOCK HASH DIGEST</span>
+        <br>
+        <div class="main-info timestamp-info">{{ picogridTotalHash |  viewHashCode }}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -77,16 +84,13 @@ export default {
 #picogrid_view {
   background-color: #808080;
   padding: 5px 20px;
+  margin-bottom: 50px;
 }
 
 #picogrid_view div {
   font-size: 12px;
   color: black;
 }
-
-/*div.info-bar div {
- margin: auto 0;
-}*/
 
 #picogrid_view div.row.header div,
 #picogrid_view div.row.footer div {
@@ -118,6 +122,11 @@ export default {
   margin-top: 5px;
 }
 
+.footer span {
+  font-size: 12pt;
+  white-space: nowrap;
+}
+
 .info-bar.header div span {
   font-size: 14pt;
 }
@@ -141,6 +150,7 @@ span.middle {
   background-color: white;
   padding: 0 15px;
   font-size: 14pt !important;
+  display: block;
 }
 
 div.previous_hash {
@@ -153,5 +163,14 @@ span.previous_hash {
   margin: 5px 0px !important;
   display: inline-block;
   font-size: 14pt;
+}
+
+.bg-grey {
+  background-color: #d9e1f2;
+}
+
+.border-bottom {
+  border-bottom: 1px solid black !important;
+  display: block;
 }
 </style>
