@@ -1,6 +1,6 @@
 <template>
   <div class="col-md-12">
-    <div class="row"
+    <div class="row font-weight-bold"
          :style="{backgroundColor: rowColor}">
       <div class="col-md-3">{{ picogridNumber }}</div>
       <div class="col-md-1"><img :src="require(`../../assets/triangle_link${downArrow}.png`)" class="show-data" @click="showDataExecute">Total</div>
