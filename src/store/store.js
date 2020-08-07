@@ -7,6 +7,7 @@ import sha256 from 'sha256'
 
 const ENCODE_API_URI = process.env.VUE_APP_ENCODE_API_URI || "/hash"
 const HEADERS = JSON.parse(process.env.VUE_APP_HEADERS || "{}")
+const DISPLAY_DELAY = parseInt(process.env.VUE_APP_DISPLAY_DELAY || 15000)
 const NUMBER_OF_PICOGRIDS = 11
 
 export default new Vuex.Store({
@@ -76,7 +77,7 @@ export default new Vuex.Store({
           setTimeout(() => {
             context.commit('displayGridNow', {value: false})
             context.commit('updatePreviousHash', {newHash: hashCode, index: index})
-          }, 30000)
+          }, DISPLAY_DELAY)
         } catch(error) {
           console.log("Error while encoding data: " + error)
           context.commit('addHashCodes', {newHash: sha256(previousHash[index])})
