@@ -2,16 +2,16 @@
   <div class="container-md" id="picogrid_view">
     <div class="row info-bar header">
       <div class="col-md-2 main-label"><span class="middle font-weight-bold">Block Nr</span></div>
-      <div class="col-md-2 main-info text-center"><span class="middle font-weight-bold">{{ blockNumber }}</span></div>
+      <div class="col-md-2 main-info text-center"><span class="middle font-weight-bold" v-html="pad(currentBlock, 6)"></span></div>
       <div class="col-md-8 timestamp-label">
         <span class="font-weight-bold">Timestamp (DD-MM-YY HH:MM:SS)</span>
         <br>
-        <span class="timestamp-info">{{ currentDate }}</span>
+        <span class="timestamp-info" v-html="displayTimestamp(currentDate)"></span>
       </div>
     </div>
     <div class="row">
       <div class="col-md-4 main-label previous_hash"><span class="font-weight-bold previous_hash">PREVIOUS HASH</span></div>
-      <div class="col-md-8 main-info previous_hash"><span class="previous_hash">0000510308e7e0bea95a3e88e4e406c37133f0929c80866bda04bc0bce53a14</span></div>
+      <div class="col-md-8 main-info previous_hash"><span class="previous_hash" v-html="viewHashCode(previousHash, true)"></span></div>
     </div>
     <div class="row header secondary">
       <div class="col-md-3 secondary-label">Picogrid Nr</div>
@@ -19,11 +19,11 @@
       <div class="col-md-2 secondary-label">Power [W/H]</div>
       <div class="col-md-6 secondary-label">Picogrid Hash Consumption Hash</div>
     </div>
-    <div v-for="index in 11"
+    <div v-for="index in numberOfPicogrids"
          :key="'pv_' + index"
          class="row data">
-      <PicogridData :picogridReference="index"
-                    :rowColor="rowColors[index - 1]"></PicogridData>
+      <NanogridData :picogridReference="index"
+                    :rowColor="rowColors[index - 1]"></NanogridData>
     </div>
     <div class="row info-bar footer">
       <div class="col-md-2 main-label"><span class="middle font-weight-bold">POW (DoD)</span></div>
@@ -34,47 +34,68 @@
       <div class="col-md-8 main-label text-center timestamp-label bg-grey">
         <span class="font-weight-bold">BLOCK HASH DIGEST</span>
         <br>
-        <div class="main-info timestamp-info">{{ picogridTotalHash |  viewHashCode }}</div>
+        <div class="main-info timestamp-info" v-html="viewHashCode(picogridTotalHash, false)"></div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import PicogridData from './PicogridData.vue'
+import NanogridData from './NanogridData.vue'
 
 export default {
   data: function() {
     return {
-      initialHash: "0005100308e7e0bea95a3e88e4e406c37133f0929c80866bda04bc0bce53a14",
-      blockNumber: "000001",
+      numberOfPicogrids: 11,
       rowColors: ['#e2efda', '#ddebf7', '#f5d9ff', '#f5d9ff', '#fce4d6', '#ededed', '#c7e9f3', '#f0ea00', '#ccff66', '#ffbde9', '#ffcb97'] 
     }
   },
   components: {
-    PicogridData
+    NanogridData
   },
-  computed: {
-    currentDate: function() {
-      let currentDate = new Date()
-      let todaysDay = currentDate.getDate()
-      let day = (todaysDay < 10 ? "0" : "") + todaysDay
-      let todaysMonth = currentDate.getMonth() + 1
-      let month = (todaysMonth < 10 ? "0" : "") + todaysMonth
-      let today = `${day}/${month}/${currentDate.getFullYear()}`
-      let hours = currentDate.getHours()
-      let am_pm = hours >= 12 ? 'PM' : 'AM'
-      let time = `${hours > 12 ? hours - 12 : hours}:${currentDate.getMinutes()}:${currentDate.getSeconds()} ${am_pm}`
-      return `${today} ${time}`
+  methods: {
+    pad: function(num, width, prefix) {
+      if (this.$store.getters.displayGrid) {
+        prefix = prefix || "0"
+        num = num + ""
+        return num.length >= width ? num : new Array(width - num.length + 1).join(prefix) + num
+      }
+      return "&nbsp;"
     },
-    picogridTotalHash: function() {
-      return this.$store.getters.hashCodes
+    displayTimestamp: function(currentDate) {
+      return this.$store.getters.displayGrid ? currentDate(new Date()) : "&nbsp;"
+    },
+    viewHashCode: function(hashes, flag) {
+      if (this.$store.getters.displayGrid || flag) {
+        let hash = hashes[1]
+        if (typeof(hash) === "string") {
+          return hash
+        }
+        return hash[hash.length - 1]
+      }
+      return "&nbsp;"
+    },
+    currentDate: function(curDate) {
+      let todaysDay = curDate.getDate()
+      let day = (todaysDay < 10 ? "0" : "") + todaysDay
+      let todaysMonth = curDate.getMonth() + 1
+      let month = (todaysMonth < 10 ? "0" : "") + todaysMonth
+      let today = `${day}/${month}/${curDate.getFullYear()}`
+      let hours = curDate.getHours()
+      let am_pm = hours >= 12 ? 'PM' : 'AM'
+      let time = `${hours > 12 ? hours - 12 : hours}:${curDate.getMinutes()}:${curDate.getSeconds()} ${am_pm}`
+      return `${today} ${time}`
     }
   },
-  filters: {
-    viewHashCode: function(hashes) {
-      let hash = hashes[1]
-      return hash[hash.length - 1]
+  computed: {
+    picogridTotalHash: function() {
+      return this.$store.getters.hashCodes
+    },
+    previousHash: function() {
+      return this.$store.getters.previousHash
+    },
+    currentBlock: function() {
+      return this.$store.getters.hashCodes[1].length
     }
   }
 }

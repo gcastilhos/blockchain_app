@@ -41,14 +41,15 @@ export default {
       records: [],
       batch: 1,
       downArrow: "",
-      showData: false
+      showData: false,
+      displayStatus: 0
     }
   },
   methods: {
     categoryTotalHash: function(index) {
       return sha256(parseFloat(this.categoryTotals[index][1]).toFixed(2))
     },
-    getData: async function(next_batch) {
+    getData: async function(nextBatch) {
       var data
       try {
         let response = await axios.get(DATA_API_URI, {timeout: 10000, headers: HEADERS})
@@ -58,7 +59,7 @@ export default {
         data = MOCK_DATA
       }
       this.records.push(data.data[0])
-      this.batch = next_batch
+      this.batch = nextBatch
     },
     showDataExecute: function() {
       this.showData = !this.showData
@@ -69,17 +70,36 @@ export default {
     this.getData(this.batch)
   },
   created: function() {
+
+    let finiteStateMachine = () => {
+      if (this.displayStatus === 0) {
+        this.batch += 1
+        this.getData(this.batch)
+      } else if (this.displayStatus === 3) {
+        if (this.batch % MAX_BATCH === 0) {
+          this.records.splice(0, MAX_BATCH)
+        }
+        this.displayStatus = 0
+        this.batch += 1
+        this.getData(this.batch)
+      }
+      if (this.$store.getters.displayGrid) {
+        this.displayStatus = 2
+      } else if (this.displayStatus === 2) {
+        this.displayStatus = 3
+      }
+    }
+
     let interval = parseInt(process.env.VUE_APP_DELAY || 10000)
     setInterval(function() {
-      if (this.batch % MAX_BATCH === 0) {
+      if (this.batch % MAX_BATCH === 0 && this.displayStatus === 0) {
         let totals = this.categoryTotals.slice()
         totals.splice(0, 0, this.picogridReference)
         totals.splice(0, 0, this.batch)
         this.$store.dispatch('addPicogridTotals', {totals: totals, index: 1})
-        this.records.splice(0, MAX_BATCH)
+        this.displayStatus = 1
       }
-      this.batch = this.batch + 1
-      this.getData(this.batch)
+      finiteStateMachine()
     }.bind(this), interval)
   },
   computed: {

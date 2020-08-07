@@ -27,7 +27,7 @@
               <router-link to="/picogrid11" class="nav-link">11 Picogrid Hashes</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/picogridview" class="nav-link">Picogrid View</router-link>
+              <router-link to="/nanogridview" class="nav-link">Nanogrid View</router-link>
             </li>
           </ul>
         </nav>
@@ -51,7 +51,7 @@ import EventsHash from './components/hash/EventsHash.vue'
 import EventCategorization from './components/categorization/EventCategorization.vue'
 import Picogrid from './components/picogrid/Picogrid.vue'
 import Picogrid11 from './components/picogrid11/Picogrid11.vue'
-import PicogridView from './components/picogridview/PicogridView.vue'
+import NanogridView from './components/nanogridview/NanogridView.vue'
 import PicogridHome from './components/PicogridHome.vue'
 Vue.use(VueRouter);
 
@@ -64,7 +64,7 @@ var router = new VueRouter({
     {path: '/eventcategorization', component: EventCategorization},
     {path: '/picogrid', component: Picogrid},
     {path: '/picogrid11', component: Picogrid11},
-    {path: '/picogridview', component: PicogridView}
+    {path: '/nanogridview', component: NanogridView}
   ]
 })
 
