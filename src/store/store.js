@@ -70,7 +70,7 @@ export default new Vuex.Store({
       if (currentTotals[index].length > 0 && hashCodes[index].length < currentIndex[index] + 1) {
        try {
           let uri = `${ENCODE_API_URI}?previous=${previousHash[index]}&data=${encodeURIComponent(currentTotals[index])}`
-          let response = await axios.get(uri, {timeout: 10000, headers: HEADERS})
+          let response = await axios.get(uri, {timeout: 20000, headers: HEADERS})
           let hashCode = response.data[1]
           context.commit('addHashCodes', {newHash: hashCode, index: index})
           context.commit('displayGridNow', {value: true})
@@ -80,7 +80,7 @@ export default new Vuex.Store({
           }, DISPLAY_DELAY)
         } catch(error) {
           console.log("Error while encoding data: " + error)
-          context.commit('addHashCodes', {newHash: sha256(previousHash[index])})
+          context.commit('addHashCodes', {newHash: sha256(previousHash[index]), index: index})
         }
       }
     }
