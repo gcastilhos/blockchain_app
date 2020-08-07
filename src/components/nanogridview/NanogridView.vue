@@ -2,16 +2,16 @@
   <div class="container-md" id="picogrid_view">
     <div class="row info-bar header">
       <div class="col-md-2 main-label"><span class="middle font-weight-bold">Block Nr</span></div>
-      <div class="col-md-2 main-info text-center"><span class="middle font-weight-bold" v-html="pad(currentBlock, 6)"></span></div>
+      <div class="col-md-2 main-info text-center"><span class="middle font-weight-bold" :style="{color: greyedOut}">{{ currentBlock | pad(6) }}</span></div>
       <div class="col-md-8 timestamp-label">
         <span class="font-weight-bold">Timestamp (DD-MM-YY HH:MM:SS)</span>
         <br>
-        <span class="timestamp-info" v-html="displayTimestamp(currentDate)"></span>
+        <span class="timestamp-info" :style="{color: greyedOut}">{{ displayTimestamp() }}</span>
       </div>
     </div>
     <div class="row">
       <div class="col-md-4 main-label previous_hash"><span class="font-weight-bold previous_hash">PREVIOUS HASH</span></div>
-      <div class="col-md-8 main-info previous_hash"><span class="previous_hash" v-html="viewHashCode(previousHash, true)"></span></div>
+      <div class="col-md-8 main-info previous_hash"><span class="previous_hash" v-html="viewHashCode(previousHash)"></span></div>
     </div>
     <div class="row header secondary">
       <div class="col-md-3 secondary-label">Picogrid Nr</div>
@@ -34,7 +34,7 @@
       <div class="col-md-8 main-label text-center timestamp-label bg-grey">
         <span class="font-weight-bold">BLOCK HASH DIGEST</span>
         <br>
-        <div class="main-info timestamp-info" v-html="viewHashCode(picogridTotalHash, false)"></div>
+        <div class="main-info timestamp-info" :style="{color: greyedOut}" v-html="viewHashCode(picogridTotalHash)"></div>
       </div>
     </div>
   </div>
@@ -54,26 +54,15 @@ export default {
     NanogridData
   },
   methods: {
-    pad: function(num, width, prefix) {
-      if (this.$store.getters.displayGrid) {
-        prefix = prefix || "0"
-        num = num + ""
-        return num.length >= width ? num : new Array(width - num.length + 1).join(prefix) + num
-      }
-      return "&nbsp;"
+    displayTimestamp: function() {
+      return this.currentDate(new Date())
     },
-    displayTimestamp: function(currentDate) {
-      return this.$store.getters.displayGrid ? currentDate(new Date()) : "&nbsp;"
-    },
-    viewHashCode: function(hashes, flag) {
-      if (this.$store.getters.displayGrid || flag) {
-        let hash = hashes[1]
-        if (typeof(hash) === "string") {
-          return hash
-        }
-        return hash[hash.length - 1]
+    viewHashCode: function(hashes) {
+      let hash = hashes[1]
+      if (typeof(hash) !== "string") {
+        hash = hash[hash.length - 1] 
       }
-      return "&nbsp;"
+      return  hash !== undefined ? hash : "&nbsp;"
     },
     currentDate: function(curDate) {
       let todaysDay = curDate.getDate()
@@ -96,6 +85,16 @@ export default {
     },
     currentBlock: function() {
       return this.$store.getters.hashCodes[1].length
+    },
+    greyedOut: function() {
+      return this.$store.getters.displayGrid ? "black" : "#ddd"
+    }
+  },
+  filters: {
+    pad: function(num, width, prefix) {
+      prefix = prefix || "0"
+      num = num + ""
+      return num.length >= width ? num : new Array(width - num.length + 1).join(prefix) + num
     }
   }
 }
