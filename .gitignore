@@ -154,4 +154,4 @@ dmypy.json
 
 # Data files
 **/*.csv
-**/*.json
+public/data/*.json
