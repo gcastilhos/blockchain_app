@@ -13,6 +13,8 @@
 </template>
 
 <script>
+const TRIANGLE = '/img/triangle_link.fbaab044.png'
+const TRIANGLE_DOWN = '/img/triangle_link_down.a33343dc.png'
 
 const SnapshotData = {
   render: function(h) {
@@ -44,6 +46,30 @@ export default {
     getCurrentBlock: function(event) {
       this.displayBlock = event.target.valueAsNumber
     }
+  },
+  updated: function() {
+    let dataLinks = document.getElementsByClassName('show-data', this.$el)
+    if (dataLinks.length > 0) {
+      for (let i = 0; i < 11; ++i) {
+        let link = dataLinks[i]
+        let parentNode = link.parentNode.parentNode.parentNode
+        let rows = parentNode.querySelectorAll('.row')
+        let hiddenRows = []
+        rows.forEach(row => {
+          if (row.style.display === 'none') {
+            hiddenRows.push(row)
+          }
+        })
+        link.addEventListener('click', function(event) {
+          let img = event.target
+          let isDown = img.src.search('down') > -1
+          img.src = isDown ? TRIANGLE : TRIANGLE_DOWN
+          hiddenRows.forEach(row => {
+            row.style.display = isDown ? 'none' : 'flex'
+          })
+        })
+      }
+    } 
   }
 }
 </script>
