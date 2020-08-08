@@ -78,8 +78,9 @@ Along with that, also the `NODE_ENV` variable should be set in both staging and 
 
 On `Heroku` (NOTE: if not set, assumed development)
 ```
-heroku config:set NODE_ENV=staging --app blockchainevents-staging
-heroku config:set NODE_ENV=production --app blockchainevents
+heroku config:set NODE_ENV=development --app blockchain1aus-dev
+heroku config:set NODE_ENV=production --app blockchain1aus-staging
+heroku config:set NODE_ENV=production --app blockchain1aus
 ```
 
 ### The static.json File
