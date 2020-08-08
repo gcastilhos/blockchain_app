@@ -84,10 +84,11 @@ export default new Vuex.Store({
       let previousHash = context.getters.previousHash
       if (currentTotals[index].length > 0 && hashCodes[index].length < currentIndex[index] + 1) {
         try {
+          let lastElementPosition = currentTotals[index].length - 1
           let response = await axios.post(ENCODE_API_URI, {timeout: 20000,
                                                            headers: HEADERS,
                                                            previous: previousHash[index],
-                                                           data: currentTotals[index]})
+                                                           data: currentTotals[index][lastElementPosition]})
           let hashCode = response.data[1]
           context.commit('addHashCodes', {newHash: hashCode, index: index})
           context.commit('displayGridNow', {value: true})
