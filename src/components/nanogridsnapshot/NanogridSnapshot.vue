@@ -36,7 +36,7 @@ export default {
       return this.$store.getters.snapShotViews.length
     },
     fromStorage: function() {
-      return localStorage[`snapshot${this.displayBlock}`]
+      return this.displayBlock > 0 ? localStorage[`snapshot${this.displayBlock}`] : ''
     }
   },
   components: {
