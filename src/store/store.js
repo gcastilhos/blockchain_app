@@ -84,7 +84,7 @@ export default new Vuex.Store({
       let previousHash = context.getters.previousHash
       if (currentTotals[index].length > 0 && hashCodes[index].length < currentIndex[index] + 1) {
         try {
-          let data = JSON.stringify(currentTotals[index])
+          let data = encodeURIComponent(currentTotals[index]).replaceAll("%22", "").replaceAll(",", "")
           let uri = `${ENCODE_API_URI}?previous=${previousHash[index]}&data=${data}`
           console.log(`HEADERS: ${HEADERS}`)
           let response = await axios.get(uri, {timeout: 20000, headers: HEADERS})
