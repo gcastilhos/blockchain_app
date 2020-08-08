@@ -85,6 +85,7 @@ export default new Vuex.Store({
       if (currentTotals[index].length > 0 && hashCodes[index].length < currentIndex[index] + 1) {
         try {
           let uri = `${ENCODE_API_URI}?previous=${previousHash[index]}&data=${encodeURIComponent(currentTotals[index])}`
+          console.log(`HEADERS: ${HEADERS}`)
           let response = await axios.get(uri, {timeout: 20000, headers: HEADERS})
           let hashCode = response.data[1]
           context.commit('addHashCodes', {newHash: hashCode, index: index})
