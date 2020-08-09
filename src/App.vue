@@ -57,7 +57,9 @@ import Picogrid from './components/picogrid/Picogrid.vue'
 import Picogrid11 from './components/picogrid11/Picogrid11.vue'
 import NanogridView from './components/nanogridview/NanogridView.vue'
 import NanogridSnapshot from './components/nanogridsnapshot/NanogridSnapshot.vue'
-Vue.use(VueRouter);
+import {BootstrapVue} from 'bootstrap-vue'
+Vue.use(VueRouter)
+Vue.use(BootstrapVue)
 
 var router = new VueRouter({
   mode: 'history',
