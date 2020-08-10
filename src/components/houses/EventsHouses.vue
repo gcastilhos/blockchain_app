@@ -5,24 +5,37 @@
            :key="'r_' + indRow"
            class="row">
         <div class="col-1" v-if="indRow == 0">
-           <label class="blocks font-weight-bold" for="numberOfBlocks">Number of houses (up to 100):</label>
-           <input type="number" id="numberOfBlocks" name="numberOfBlocks" @keyup="updateRows" v-model="blocks" min="1" max="100" maxlength="3"/>
+           <label class="blocks font-weight-bold" for="numberOfBlocks">
+             Number of houses (up to 100):
+           </label>
+           <input
+             type="number"
+             id="numberOfBlocks"
+             name="numberOfBlocks"
+             @change="updateRows"
+             @keyup="updateRows"
+             v-model="blocks"
+             min="1"
+             max="100"
+             maxlength="3"
+           />
         </div>
         <div class="col-1" v-else></div>
         <div v-for="(column, indCol) in numCols(row)"
              :key="'c_' + indCol"
              class="col-5 text-left">
-          <house-blockchain v-on:get-hash="getNewHash($event)"
-                            :index="getIndex(row, column)"
-                            :houseNo="getIndex(row, column)"
-                            :active="active[getIndex(row, column)]"
-                            :hash="hash[getIndex(row, column)]"
-                            :eventData="eventData[getIndex(row, column)]"
-                            :blockNo="blockNo + getIndex(row, column)"
-                            :previousHash="previousHash[getIndex(row, column)]"
-                            :originalHash="originalHash[getIndex(row, column)]"
-                            :blocks="validBlocks"
-                            :nonce="nonce[getIndex(row, column)]">
+          <house-blockchain
+            v-on:get-hash="getNewHash($event)"
+            :index="getIndex(row, column)"
+            :houseNo="getIndex(row, column)"
+            :active="active[getIndex(row, column)]"
+            :hash="hash[getIndex(row, column)]"
+            :eventData="eventData[getIndex(row, column)]"
+            :blockNo="blockNo + getIndex(row, column)"
+            :previousHash="previousHash[getIndex(row, column)]"
+            :originalHash="originalHash[getIndex(row, column)]"
+            :blocks="validBlocks"
+            :nonce="nonce[getIndex(row, column)]">
           </house-blockchain>
         </div>
         <div class="col-1"></div>
@@ -108,19 +121,19 @@ export default {
       return 2
     },
     getIndex: function(row, column) {
-      return 2 * row + column - 3; 
+      return 2 * row + column - 3;
     },
     setInitialHash: function() {
       this.$set(this.previousHash, 0, INITIAL_HASH)
     },
     updateRows: function() {
-      this.rows = Math.ceil(this.validBlocks / 2); 
+      this.rows = Math.ceil(this.validBlocks / 2);
       this.setInitialHash()
       this.getHash(0)
     }
   },
   mounted: function() {
-    this.rows = Math.ceil(this.validBlocks / 2); 
+    this.rows = Math.ceil(this.validBlocks / 2);
     this.setInitialHash()
     this.getHash(0)
   },
