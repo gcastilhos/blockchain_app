@@ -8,7 +8,7 @@
 
 1. _Events Hash_ - Each event is requested from the [Event Queue](https://github.com/gcastilhos/blockchain1), displayed and its hash is calculated on the right-hand tab. A total hash encoding of all hashes is shown at bottom, with a yellow frame. This simulation cycles through 100 events, then return to 1. All events are  
 
-The application is Vue.js SPA (Single Page App), with no servers in the backend. For that matter, it is a static application, with the Vue.js app taking care of handling the front-end rendering and data fetching. The event records are provided by the [event queue server](https://eventqueue.herokuapp.com/events). Please, check 
+The application is Vue.js SPA (Single Page App), with no servers in the backend. For that matter, it is a static application, with the Vue.js app taking care of handling the front-end rendering and data fetching. The event records are provided by the [event queue server](https://eventqueue.herokuapp.com/events). Check the [GitHub project blockchain1](https://github.com/gcastilhos/blockchain1) for more details.
 
 ## Project setup (using vue-cli and yarn package manager)
 ```
