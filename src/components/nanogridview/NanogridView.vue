@@ -1,5 +1,5 @@
 <template>
-  <div class="container-md" id="picogrid_view">
+  <div class="container-md" id="nanogrid_view">
     <div class="row info-bar header">
       <div class="col-md-2 main-label"><span class="middle font-weight-bold">Block Nr</span></div>
       <div class="col-md-2 main-info text-center"><span class="middle font-weight-bold" :style="{color: greyedOut}">{{ currentBlock | pad(6) }}</span></div>
@@ -42,12 +42,13 @@
 
 <script>
 import NanogridData from './NanogridData.vue'
+const SERIALIZER = new XMLSerializer()
 
 export default {
   data: function() {
     return {
       numberOfPicogrids: 11,
-      rowColors: ['#e2efda', '#ddebf7', '#f5d9ff', '#f5d9ff', '#fce4d6', '#ededed', '#c7e9f3', '#f0ea00', '#ccff66', '#ffbde9', '#ffcb97'] 
+      rowColors: ['#e2efda', '#ddebf7', '#f5d9ff', '#f5d9ff', '#fce4d6', '#ededed', '#c7e9f3', '#f0ea00', '#ccff66', '#ffbde9', '#ffcb97']
     }
   },
   components: {
@@ -88,6 +89,17 @@ export default {
     },
     greyedOut: function() {
       return this.$store.getters.displayGrid ? "black" : "#ddd"
+    },
+    flagSnapshot: function() {
+      return this.$store.getters.flagSnapshot
+    }
+  },
+  watch: {
+    flagSnapshot: function() {
+      if (this.$store.getters.flagSnapshot)  {
+        this.$store.dispatch('addSnapshot', {snapshot: SERIALIZER.serializeToString(this.$el),
+                                             block: this.currentBlock})
+      }
     }
   },
   filters: {
@@ -101,19 +113,19 @@ export default {
 </script>
 
 <style scoped>
-#picogrid_view {
+#nanogrid_view {
   background-color: #808080;
   padding: 5px 20px;
   margin-bottom: 50px;
 }
 
-#picogrid_view div {
+#nanogrid_view div {
   font-size: 12px;
   color: black;
 }
 
-#picogrid_view div.row.header div,
-#picogrid_view div.row.footer div {
+#nanogrid_view div.row.header div,
+#nanogrid_view div.row.footer div {
   border: 1px solid black;
 }
 

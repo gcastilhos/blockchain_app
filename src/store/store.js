@@ -17,7 +17,9 @@ export default new Vuex.Store({
     previousHash: [INITIAL_HASH, INITIAL_HASH],
     hashCodes: [[], []],
     totalsIndex: [-1, -1],
-    displayGrid: false
+    displayGrid: false,
+    snapShotView: [],
+    flagSnapshot: false
   },
   getters: {
     picogridsHashes: state => {
@@ -37,6 +39,12 @@ export default new Vuex.Store({
     },
     displayGrid: state => {
       return state.displayGrid
+    },
+    snapShotViews: state => {
+      return state.snapShotView
+    },
+    flagSnapshot: state => {
+      return state.flagSnapshot
     }
   },
   mutations: {
@@ -57,6 +65,13 @@ export default new Vuex.Store({
     },
     displayGridNow(state, payload) {
       state.displayGrid = payload.value
+    },
+    addSnapshotView(state, payload) {
+      state.snapShotView.push(payload.block)
+      state.flagSnapshot = false
+    },
+    flagSnapshot(state, payload) {
+      state.flagSnapshot = payload.value
     }
   },
   actions: {
@@ -68,13 +83,17 @@ export default new Vuex.Store({
       let currentIndex = context.getters.currentIndex
       let previousHash = context.getters.previousHash
       if (currentTotals[index].length > 0 && hashCodes[index].length < currentIndex[index] + 1) {
-       try {
-          let uri = `${ENCODE_API_URI}?previous=${previousHash[index]}&data=${encodeURIComponent(currentTotals[index])}`
-          let response = await axios.get(uri, {timeout: 20000, headers: HEADERS})
+        try {
+          let lastElementPosition = currentTotals[index].length - 1
+          let response = await axios.post(ENCODE_API_URI, {timeout: 20000,
+                                                           headers: HEADERS,
+                                                           previous: previousHash[index],
+                                                           data: currentTotals[index][lastElementPosition]})
           let hashCode = response.data[1]
           context.commit('addHashCodes', {newHash: hashCode, index: index})
           context.commit('displayGridNow', {value: true})
           setTimeout(() => {
+            context.commit('flagSnapshot', {value: true})
             context.commit('displayGridNow', {value: false})
             context.commit('updatePreviousHash', {newHash: hashCode, index: index})
           }, DISPLAY_DELAY)
@@ -83,6 +102,13 @@ export default new Vuex.Store({
           context.commit('addHashCodes', {newHash: sha256(previousHash[index]), index: index})
         }
       }
+    },
+    addSnapshot(context, payload) {
+      localStorage['snapshot' + payload.block] = payload.snapshot
+      context.commit('addSnapshotView', payload)
+    },
+    flagSnapshot(context, payload) {
+      context.commit('flagSnapshot', payload)
     }
   }
 })

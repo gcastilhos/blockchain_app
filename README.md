@@ -71,6 +71,7 @@ heroku config:set NODE_ENV=production --app eventcategorization
 ```
 
 #### MAX_BLOCKS
+
 It is possible to set the maximum number of blocks that can be displayed. Setting the environment variable
 ```
 VUE_APP_MAX_BLOCKS=<number_of_blocks>
@@ -115,5 +116,6 @@ heroku config:set NODE_ENV=staging --app blockchainpicogrid-stage
 heroku config:set NODE_ENV=production --app blockchainpicogrid
 ```
 
-### Setting CORS
+#### Setting CORS
 
+The Cross-Origin Resource Sharing header in necessary in order to access the event queue API and Proof of Work (hashing) functionality. This is set in the `VUE_APP_HEADERS` environment variable.
