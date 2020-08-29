@@ -6,9 +6,19 @@
 
 1. _Blockchain Demo_ - a display of a number of houses (1 to 100), with hardcoded data (same data for every household), and a demonstration of modifications attempts to the created block hash. The hash of the data is a SHA-256 encoding of the text provided by the values and headers. If any modification is made to the data (editable field), a red frame indicates that the current hash for a given household is not the original encoding. This is propagated to the following blocks (household hashes), also demonstrating the level of complexity required to change any block in the blockchain.
 
-1. _Events Hash_ - Each event is requested from the [Event Queue](https://github.com/gcastilhos/blockchain1), displayed and its hash is calculated on the right-hand tab. A total hash encoding of all hashes is shown at bottom, with a yellow frame. This simulation cycles through 100 events, then return to 1. All events are  
+1. _Events Hash_ - Each event is requested from the [Event Queue](https://github.com/gcastilhos/blockchain1), displayed and its hash is calculated on the right-hand tab. A total hash encoding of all hashes is shown at bottom, with a yellow frame. This simulation cycles through 100 events, then return to 1. All events are unique, provided by the event queue.
 
-The application is Vue.js SPA (Single Page App), with no servers in the backend. For that matter, it is a static application, with the Vue.js app taking care of handling the front-end rendering and data fetching. The event records are provided by the [event queue server](https://eventqueue.herokuapp.com/events). Check the [GitHub project blockchain1](https://github.com/gcastilhos/blockchain1) for more details.
+1. _Events Categories_ - Event Use Categorisation Filtering, using hardcoded data stored in JSON files in the server. It demonstrates the grouping of events by category (e.g., LIGHTING), showing the total for each category for each request. The refresh rate is set at 5 seconds. Each request has a set of JSON files that are read from the server and provide the event data and category grouping. The justification for this approach is that this application was meant to run only from the GitHub `gh-pages` branch, not from Heroku. This is the only app that does not fetch the data from the Event Queue API.
+
+1. _Picogrid Categories_ - A full-fledged event categorization app, fetching the events from the Event Queue API and grouping the total of up to 50 events into categories, with total power consumption shown on the right-hand tab. There is a refresh of the screen every 50 events (aka batch).
+
+1. _11 Picogrid Hashes_ - Picogrid Event Summary, a consolidate consumption per use category. This apps shows 11 picogrid summaries, each one receiving events from the Event Queue API, and calculating the total consumption in real time. In the bottom section (HASH BLOCKS), the total hash encoding for all 11 picogrids are shown overtime. This app cycles through a 200-second period to produce the hash code for a given batch, i.e., events are received and accumulated for 200 seconds and then a hash code of the snapshot at that moment is taken. This will form a block in the blockchain.
+
+1. _Nanogrid View_ - Consolidated Consumption Per use Category - This view shows the nanogrid of 11 picogrids, with details of real-time readings, timestamp, and previous hash. Every  200-second interval, the hash is calculated with Proof-Of-Work (POW) consensus protocol, performed by the same Event Queue API, on a different endpoint (https://eventqueue.herokupapp.com/hash). 
+
+1. _Nanogrid Snapshot_ - A snapshot from the moment of the block hash code creation. It shows the total consumption per category for each picogrid in the nanogrid.
+
+The application is Vue.js SPA (Single Page App), with no server-side in the backend. For that matter, it is a static application, with the Vue.js app taking care of handling the front-end rendering and dagta fetching. The event records are provided by the [event queue server](https://eventqueue.herokuapp.com/events). Check the [GitHub project blockchain1](https://github.com/gcastilhos/blockchain1) for more details.
 
 ## Project setup (using vue-cli and yarn package manager)
 ```
