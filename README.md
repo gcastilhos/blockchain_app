@@ -1,5 +1,15 @@
 # Blockchain Demo App - Hashes and Categories
 
+## Abstract
+
+**Blockchain Demo App** is a simulation of a powergrid event blockchain, where the power events (e.g., lights on, refrigerator cycling, etc) of a given household (picogrid) is registered every given seconds and added as a block in a blockchain. This app has several displays of such events:
+
+1. Blockchain Demo - a display of a number of houses (1 to 100), with hardcoded data (same data for every household), and a demonstration of modifications attempts to the created block hash. The hash of the data is a SHA-256 encoding of the text provided by the values and headers. If any modification is made to the data (editable field), a red frame indicates that the current hash for a given household is not the original encoding. This is propagated to the following blocks (household hashes), also demonstrating the level of complexity required to change any block in the blockchain.
+
+1. _Events Hash_ - 
+
+The application is Vue.js SPA (Single Page App), with no servers in the backend. For that matter, it is a static application, with the Vue.js app taking care of handling the front-end rendering and data fetching. The event records are provided by the [event queue server](https://eventqueue.herokuapp.com/events). Please, check 
+
 ## Project setup
 ```
 yarn install
