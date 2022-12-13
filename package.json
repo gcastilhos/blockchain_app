@@ -12,7 +12,7 @@
     "bootstrap": "^4.5.0",
     "bootstrap-vue": "^2.16.0",
     "core-js": "^3.6.5",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "node-fetch": "^2.6.0",
     "sha256": "^0.2.0",
     "vue": "^2.6.11",
